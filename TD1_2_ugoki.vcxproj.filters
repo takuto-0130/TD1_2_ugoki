@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="KamataEngine">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="KamataEngine\Source">
+      <UniqueIdentifier>{d966e9f8-e880-44ae-8586-a08515e4cffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KamataEngine\Include">
+      <UniqueIdentifier>{4aae4e40-94f7-4d32-9a91-c0c37a2edf0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KamataEngine\Adapter">
+      <UniqueIdentifier>{c6468eb4-788b-4a83-b207-a5f4804e56c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle">
+      <UniqueIdentifier>{49940418-8451-424a-96d3-44e9e7cb843b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle\flying">
+      <UniqueIdentifier>{8d155742-b627-40a7-bc09-02df3de4b48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle\util">
+      <UniqueIdentifier>{2144291e-97be-4c28-bc0d-a0643b2bbba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle\running">
+      <UniqueIdentifier>{0a456bcb-0047-42ef-88f7-e0f56d189886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="player">
+      <UniqueIdentifier>{a3849fff-0ecd-4877-bcc6-0639fa865959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle\playerDead">
+      <UniqueIdentifier>{06f0c014-e71d-4ec5-8aeb-f158837cd1ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle\clear">
+      <UniqueIdentifier>{4d25947d-1a37-4a2e-bdbd-0b041921e81f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle\jump">
+      <UniqueIdentifier>{02bab570-40d9-4a20-b4b7-9a8dd2f2b3e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
+      <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\KamataEngine\DirectXGame\base\TextureManager.cpp">
+      <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\KamataEngine\DirectXGame\scene\GameScene.cpp">
+      <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp">
+      <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp">
+      <Filter>KamataEngine\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\KamataEngine\DirectXGame\base\StringUtility.cpp">
+      <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\flying\FlyingEmitter.cpp">
+      <Filter>particle\flying</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\flying\FlyingParticle.cpp">
+      <Filter>particle\flying</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\running\RunningEmitter.cpp">
+      <Filter>particle\running</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\running\RunningParticle.cpp">
+      <Filter>particle\running</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\util\util.cpp">
+      <Filter>particle\util</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\playerDead\PlayerDeadEmitter.cpp">
+      <Filter>particle\playerDead</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\playerDead\PlayerDeadParticle.cpp">
+      <Filter>particle\playerDead</Filter>
+    </ClCompile>
+    <ClCompile Include="player\player.cpp">
+      <Filter>player</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\clearParticle\ClearEmitter.cpp">
+      <Filter>particle\clear</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\clearParticle\ClearParticle.cpp">
+      <Filter>particle\clear</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\jump\jumpEnergyParticle.cpp">
+      <Filter>particle\jump</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\jump\jumpEnergyEmitter.cpp">
+      <Filter>particle\jump</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\2d\DebugText.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\input\Input.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\Model.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\base\SafeDelete.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\2d\Sprite.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\base\TextureManager.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\ViewProjection.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\base\WinApp.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\WorldTransform.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\Adapter\Novice.h">
+      <Filter>KamataEngine\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\CircleShadow.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DebugCamera.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DirectionalLight.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\LightGroup.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\Material.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\Mesh.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\PointLight.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\3d\SpotLight.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\KamataEngine\DirectXGame\math\Matrix4x4.h" />
+    <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector2.h" />
+    <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector3.h" />
+    <ClInclude Include="C:\KamataEngine\DirectXGame\math\Vector4.h" />
+    <ClInclude Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.h" />
+    <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h">
+      <Filter>KamataEngine\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\flying\FlyingEmitter.h">
+      <Filter>particle\flying</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\flying\FlyingParticle.h">
+      <Filter>particle\flying</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\running\RunningEmitter.h">
+      <Filter>particle\running</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\running\RunningParticle.h">
+      <Filter>particle\running</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\util\util.h">
+      <Filter>particle\util</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\playerDead\PlayerDeadEmitter.h">
+      <Filter>particle\playerDead</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\playerDead\PlayerDeadParticle.h">
+      <Filter>particle\playerDead</Filter>
+    </ClInclude>
+    <ClInclude Include="player\player.h">
+      <Filter>player</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\clearParticle\ClearEmitter.h">
+      <Filter>particle\clear</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\clearParticle\ClearParticle.h">
+      <Filter>particle\clear</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\jump\jumpEnergyParticle.h">
+      <Filter>particle\jump</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\jump\jumpEnergyEmitter.h">
+      <Filter>particle\jump</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
