@@ -9,7 +9,7 @@ void PlayerVertex(Vector2 center, int width, int height, Vector2& lt, Vector2& r
 };
 
 void PlayerInitialize(Player& a) {
-	a.pos = { 400,680 };
+	a.pos = { 400,608 };
 	a.radius = blockSize / 2;
 	a.collisionLen = blockSize;
 	a.gravity = 0.3f;

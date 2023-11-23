@@ -118,6 +118,9 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix\Matrix.cpp" />
+    <ClCompile Include="particle\BackGroundParticle\BackGroundEmitter.cpp" />
+    <ClCompile Include="particle\BackGroundParticle\BackGroundParticle.cpp" />
     <ClCompile Include="particle\clearParticle\ClearEmitter.cpp" />
     <ClCompile Include="particle\clearParticle\ClearParticle.cpp" />
     <ClCompile Include="particle\flying\FlyingEmitter.cpp" />
@@ -159,6 +162,9 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="C:\KamataEngine\DirectXGame\input\Input.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
+    <ClInclude Include="Matrix\Matrix.h" />
+    <ClInclude Include="particle\BackGroundParticle\BackGroundEmitter.h" />
+    <ClInclude Include="particle\BackGroundParticle\BackGroundParticle.h" />
     <ClInclude Include="particle\clearParticle\ClearEmitter.h" />
     <ClInclude Include="particle\clearParticle\ClearParticle.h" />
     <ClInclude Include="particle\flying\FlyingEmitter.h" />

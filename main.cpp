@@ -6,12 +6,13 @@
 #include <stdio.h>
 #include "Vector2.h"
 #include <time.h>
+#include "player/player.h"
 #include "particle/flying/FlyingEmitter.h"
 #include "particle/running/RunningEmitter.h"
 #include "particle/playerDead/PlayerDeadEmitter.h"
 #include "particle/clearParticle/ClearEmitter.h"
-#include "player/player.h"
 #include "particle/jump/jumpEnergyEmitter.h"
+#include "particle/BackGroundParticle/BackGroundEmitter.h"
 
 // キー入力結果を受け取る箱
 char keys[256] = { 0 };
@@ -81,6 +82,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	PlayerDeadEmitter playerDeadEmitter;
 	ClearEmitter clearEmitter;
 	JumpEnergyEmitter jumpEnergyEmitter;
+	BackGroundEmitter backGroundEmitter;
+
+	Vector2 playerWorldPos = { player.pos.x + scroll, player.pos.y };
 
 	Vector2 gaugePos = { 100,700 };
 	
@@ -209,6 +213,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 			clearEmitter.Update();
 		}
+		playerWorldPos = { player.pos.x + scroll, player.pos.y };
+		backGroundEmitter.Update(playerWorldPos);
 
 		///
 		/// ↑更新処理ここまで
@@ -217,7 +223,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-
+		
 		for (int y = 0; y < kMapNumHeight; y++)
 		{
 			for (int x = 0; x < kMapNumWidth; x++)
@@ -252,6 +258,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 			}
 		}
+
+		backGroundEmitter.Draw(int(scroll));
 
 		if(player.life > 0)
 		{

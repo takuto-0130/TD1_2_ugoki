@@ -38,6 +38,12 @@
     <Filter Include="particle\jump">
       <UniqueIdentifier>{02bab570-40d9-4a20-b4b7-9a8dd2f2b3e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Matrix">
+      <UniqueIdentifier>{30648197-bd3d-4949-bb4e-ecdc4a6379ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="particle\bakcGround">
+      <UniqueIdentifier>{a77330a5-308b-4586-91a1-3cb16543dd84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -97,6 +103,15 @@
     </ClCompile>
     <ClCompile Include="particle\jump\jumpEnergyEmitter.cpp">
       <Filter>particle\jump</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix\Matrix.cpp">
+      <Filter>Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\BackGroundParticle\BackGroundParticle.cpp">
+      <Filter>particle\bakcGround</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\BackGroundParticle\BackGroundEmitter.cpp">
+      <Filter>particle\bakcGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +221,15 @@
     </ClInclude>
     <ClInclude Include="particle\jump\jumpEnergyEmitter.h">
       <Filter>particle\jump</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix\Matrix.h">
+      <Filter>Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\BackGroundParticle\BackGroundParticle.h">
+      <Filter>particle\bakcGround</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\BackGroundParticle\BackGroundEmitter.h">
+      <Filter>particle\bakcGround</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
