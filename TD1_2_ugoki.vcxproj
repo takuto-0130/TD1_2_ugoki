@@ -125,8 +125,12 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="particle\clearParticle\ClearParticle.cpp" />
     <ClCompile Include="particle\flying\FlyingEmitter.cpp" />
     <ClCompile Include="particle\flying\FlyingParticle.cpp" />
+    <ClCompile Include="particle\GetCoin\GetCoinEmitter.cpp" />
+    <ClCompile Include="particle\GetCoin\GetCoinParticle.cpp" />
     <ClCompile Include="particle\jump\jumpEnergyEmitter.cpp" />
     <ClCompile Include="particle\jump\jumpEnergyParticle.cpp" />
+    <ClCompile Include="particle\ModeChange\ModeChangeEmitter.cpp" />
+    <ClCompile Include="particle\ModeChange\ModeChangeParticle.cpp" />
     <ClCompile Include="particle\playerDead\PlayerDeadEmitter.cpp" />
     <ClCompile Include="particle\playerDead\PlayerDeadParticle.cpp" />
     <ClCompile Include="particle\running\RunningEmitter.cpp" />
@@ -169,8 +173,12 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="particle\clearParticle\ClearParticle.h" />
     <ClInclude Include="particle\flying\FlyingEmitter.h" />
     <ClInclude Include="particle\flying\FlyingParticle.h" />
+    <ClInclude Include="particle\GetCoin\GetCoinEmitter.h" />
+    <ClInclude Include="particle\GetCoin\GetCoinParticle.h" />
     <ClInclude Include="particle\jump\jumpEnergyEmitter.h" />
     <ClInclude Include="particle\jump\jumpEnergyParticle.h" />
+    <ClInclude Include="particle\ModeChange\ModeChangeEmitter.h" />
+    <ClInclude Include="particle\ModeChange\ModeChangeParticle.h" />
     <ClInclude Include="particle\playerDead\PlayerDeadEmitter.h" />
     <ClInclude Include="particle\playerDead\PlayerDeadParticle.h" />
     <ClInclude Include="particle\running\RunningEmitter.h" />
