@@ -29,6 +29,7 @@ void PlayerInitialize(Player& a) {
 	a.kJumpChargeValue = 40.0f;
 	a.kCollisionChargeValue = 2.0f;
 	a.getCoin = 0;
+	a.isChageArea = 0;
 	PlayerVertex(a.pos, a.collisionLen, a.collisionLen, a.lt, a.rt, a.lb, a.rb);
 }
 
@@ -61,10 +62,12 @@ int mapChipCollision2(MapChipNum& map, int mapNum, Player posX, Player posY, flo
 }
 
 void flyEnergyCharge(MapChipNum& map, int mapNum, Player& a, float scroll) {
+	a.isChageArea = 0;
 	for (int y = int(a.lt.y - kChargeCollisionDistance) / blockSize; y <= int(a.lb.y + kChargeCollisionDistance) / blockSize; y++) {
 		for (int x = int(a.lt.x + scroll - kChargeCollisionDistance) / blockSize; x <= int(a.rb.x + scroll + kChargeCollisionDistance) / blockSize; x++) {
 			if (map.mapData[y][x] == mapNum) {
 				a.flyEnergy += a.kCollisionChargeValue;
+				a.isChageArea = 1;
 			}
 		}
 	}

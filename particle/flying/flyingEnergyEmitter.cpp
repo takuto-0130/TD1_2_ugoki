@@ -1,30 +1,23 @@
-﻿#include "jumpEnergyEmitter.h"
+﻿#include "flyingEnergyEmitter.h"
 
-JumpEnergyEmitter::JumpEnergyEmitter()
+FlyingEnergyEmitter::FlyingEnergyEmitter()
 {
 }
 
-JumpEnergyEmitter::~JumpEnergyEmitter()
+FlyingEnergyEmitter::~FlyingEnergyEmitter()
 {
 }
 
-void JumpEnergyEmitter::Update(Vector2 pos, bool isJump, int life)
+void FlyingEnergyEmitter::Update(Vector2 pos, bool isArea, int life)
 {
-	if (isJump == 1) {
-		isEmit_ = 1;
-		timer_ = 0;
-	}
 	// タイマーを進める
-	if(isEmit_ == 1){
+	if (isArea == 1) {
 		timer_++;
 	}
 
 	// 設定した間隔毎にパーティクルを生成する
-	if (timer_ % interval_ == 0 && timer_ < kTimerMax_ && isEmit_ == 1 && timer_ > 10) {
-		JumpEnergyEmitter::Emit({ pos.x,pos.y });
-	}
-	if (timer_ >= kTimerMax_) {
-		isEmit_ = 0;
+	if (timer_ % interval_ == 0 && isArea == 1) {
+		FlyingEnergyEmitter::Emit({ pos.x,pos.y });
 	}
 
 	// パーティクル全ての更新処理を呼ぶ
@@ -41,7 +34,7 @@ void JumpEnergyEmitter::Update(Vector2 pos, bool isJump, int life)
 	}
 }
 
-void JumpEnergyEmitter::EmitGoal(Vector2 pos)
+void FlyingEnergyEmitter::EmitGoal(Vector2 pos)
 {
 	// パーティクルのゴール地点をプレイヤーの中心に設定
 	for (auto& particle : particleList) {
@@ -49,7 +42,7 @@ void JumpEnergyEmitter::EmitGoal(Vector2 pos)
 	}
 }
 
-void JumpEnergyEmitter::Draw()
+void FlyingEnergyEmitter::Draw()
 {
 	// パーティクル全ての描画処理を呼ぶ
 	for (auto& particle : particleList) {
@@ -57,7 +50,7 @@ void JumpEnergyEmitter::Draw()
 	}
 }
 
-void JumpEnergyEmitter::Emit(Vector2 pos)
+void FlyingEnergyEmitter::Emit(Vector2 pos)
 {
 	// エミッター範囲内で座標をランダムに設定
 
@@ -84,6 +77,6 @@ void JumpEnergyEmitter::Emit(Vector2 pos)
 	color += B << 8;
 
 	// ランダムに設定した数値を生成したパーティクルに格納
-	JumpEnergyParticle newParticle = JumpEnergyParticle(pos, angle, size, color);
+	FlyingEnergyParticle newParticle = FlyingEnergyParticle(pos, angle, size, color);
 	particleList.push_back(newParticle);
 }

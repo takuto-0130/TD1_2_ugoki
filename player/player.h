@@ -50,6 +50,7 @@ struct Player {
 	float kCollisionChargeValue;
 	float kJumpChargeValue;
 	int getCoin;
+	bool isChageArea;
 };
 
 void PlayerVertex(Vector2 center, int width, int height, Vector2& lt, Vector2& rt, Vector2& lb, Vector2& rb);

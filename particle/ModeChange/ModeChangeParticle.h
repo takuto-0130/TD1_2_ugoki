@@ -5,7 +5,7 @@
 class ModeChangeParticle
 {
 public:
-	ModeChangeParticle(Vector2 pos,Vector2 velocity,float size);
+	ModeChangeParticle(Vector2 pos,Vector2 velocity,float size, unsigned int color);
 	~ModeChangeParticle();
 
 	void Update(Vector2 moveAmount);
@@ -41,5 +41,6 @@ private:
 	float size_;
 	int alpha_ = 255;
 	int timer_ = 0;
+	unsigned int color_;
 };
 

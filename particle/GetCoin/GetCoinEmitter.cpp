@@ -63,7 +63,7 @@ void GetCoinEmitter::Draw(int scroll)
 			static_cast<int>(circlePos_[0].x) - scroll, static_cast<int>(circlePos_[0].y),
 			circleRadius_[0], circleRadius_[0],
 			0.0f,
-			0xFFFFFF00 + circleAlpha_[0], kFillModeSolid
+			0xFFEEAA00 + circleAlpha_[0], kFillModeSolid
 		);
 	}
 
@@ -74,7 +74,7 @@ void GetCoinEmitter::Draw(int scroll)
 				static_cast<int>(circlePos_[1].x) - scroll, static_cast<int>(circlePos_[1].y),
 				circleRadius_[1], circleRadius_[1],
 				0.0f,
-				0xFFFFFF00 + circleAlpha_[1], kFillModeSolid
+				0xFFEECC00 + circleAlpha_[1], kFillModeSolid
 			);
 		}
 	}
@@ -92,7 +92,15 @@ void GetCoinEmitter::Emit(Vector2 centerPos)
 		float velocityX = 1 * cosf(i * angle_) - 0 * sinf(i * angle_);
 		float velocityY = 1 * sinf(i * angle_) + 0 * cosf(i * angle_);
 
-		GetCoinParticle newParticle = GetCoinParticle({ particleX,particleY }, { velocityX,velocityY },6.0f);
+		unsigned int color = 0x00000000;
+		int R = 255;
+		int G = Random(150, 230);
+		int B = Random(0, 100);
+		color += R << 24;
+		color += G << 16;
+		color += B << 8;
+
+		GetCoinParticle newParticle = GetCoinParticle({ particleX,particleY }, { velocityX,velocityY },6.0f, color);
 		particleList.push_back(newParticle);
 	}
 
@@ -104,7 +112,15 @@ void GetCoinEmitter::Emit(Vector2 centerPos)
 		float velocityX = 1 * cosf(i * angle_) - 0 * sinf(i * angle_);
 		float velocityY = 1 * sinf(i * angle_) + 0 * cosf(i * angle_);
 
-		GetCoinParticle newParticle = GetCoinParticle({ particleX,particleY }, { velocityX,velocityY }, 4.0f);
+		unsigned int color = 0x00000000;
+		int R = 255;
+		int G = Random(150, 230);
+		int B = Random(0, 100);
+		color += R << 24;
+		color += G << 16;
+		color += B << 8;
+
+		GetCoinParticle newParticle = GetCoinParticle({ particleX,particleY }, { velocityX,velocityY }, 4.0f, color);
 		particleList.push_back(newParticle);
 	}
 

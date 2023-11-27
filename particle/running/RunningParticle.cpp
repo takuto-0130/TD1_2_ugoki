@@ -61,7 +61,7 @@ void RunningParticle::Draw()
 		0, 0,
 		1, 1,
 		gh_,
-		0xFFFFFF00 + alpha_
+		0xFFFF0000 + alpha_
 	);
 }
 

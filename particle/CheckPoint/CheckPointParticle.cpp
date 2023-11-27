@@ -1,7 +1,7 @@
-﻿#include "ModeChangeParticle.h"
+﻿#include "CheckPointParticle.h"
 #include "Matrix/Matrix.h"
 
-ModeChangeParticle::ModeChangeParticle(Vector2 pos, Vector2 velocity,float size, unsigned int color)
+CheckPointParticle::CheckPointParticle(Vector2 pos, Vector2 velocity, float size, unsigned int color)
 {
 	pos_.x = pos.x;
 	pos_.y = pos.y;
@@ -14,23 +14,23 @@ ModeChangeParticle::ModeChangeParticle(Vector2 pos, Vector2 velocity,float size,
 	color_ = color;
 }
 
-ModeChangeParticle::~ModeChangeParticle()
+CheckPointParticle::~CheckPointParticle()
 {
 }
 
-void ModeChangeParticle::Update(Vector2 moveAmount)
+void CheckPointParticle::Update()
 {
 	timer_++;
 
 	// 4頂点の座標を更新（原点を中心に考える）
-	leftTop_ = { (float) - size_ / 2,(float)-size_ / 2};
+	leftTop_ = { (float)-size_ / 2,(float)-size_ / 2 };
 	rightTop_ = { (float)size_ / 2,(float)-size_ / 2 };
 	leftBottom_ = { (float)-size_ / 2,(float)size_ / 2 };
 	rightBottom_ = { (float)size_ / 2,(float)size_ / 2 };
 
 	// 座標を更新
-	pos_.x += velocity_.x * speed_ + moveAmount.x;
-	pos_.y += velocity_.y * speed_ + moveAmount.y;
+	pos_.x += velocity_.x * speed_;
+	pos_.y += velocity_.y * speed_;
 
 	// 角度を毎フレーム増加
 	theta_ += (4.0f * (float)M_PI) / 180.0f;
@@ -55,31 +55,40 @@ void ModeChangeParticle::Update(Vector2 moveAmount)
 	//	alpha_ -= 5;
 	//}
 
-	// 指定フレームに到達したらサイズを小さくする
-	if (timer_ > 30) {
-		size_ -= 0.5f;
+	// 指定したスピードになるまで毎フレーム減らす
+	if (speed_ > 1.5f) {
+		speed_ -= 0.2f;
 	}
+
+	// 指定フレームに到達したら重力落下を始める
+	if (timer_ > 12) {
+		velocity_.y += acceleratorY;
+	}
+
+	size_ -= 0.8f;
 
 	if (size_ <= 0) {
 		del_ = true;
 	}
 }
 
-void ModeChangeParticle::Draw(int scroll)
+void CheckPointParticle::Draw(int scroll)
 {
-	Novice::DrawQuad(
-		static_cast<int>(movedLeftTop.x) - scroll, static_cast<int>(movedLeftTop.y),
-		static_cast<int>(movedRightTop.x) - scroll, static_cast<int>(movedRightTop.y),
-		static_cast<int>(movedLeftBottom.x) - scroll, static_cast<int>(movedLeftBottom.y),
-		static_cast<int>(movedRightBottom.x) - scroll, static_cast<int>(movedRightBottom.y),
-		0, 0,
-		42, 42,
-		gh_,
-		color_ + alpha_
-	);
+	if (del_ == false) {
+		Novice::DrawQuad(
+			static_cast<int>(movedLeftTop.x) - scroll, static_cast<int>(movedLeftTop.y),
+			static_cast<int>(movedRightTop.x) - scroll, static_cast<int>(movedRightTop.y),
+			static_cast<int>(movedLeftBottom.x) - scroll, static_cast<int>(movedLeftBottom.y),
+			static_cast<int>(movedRightBottom.x) - scroll, static_cast<int>(movedRightBottom.y),
+			0, 0,
+			42, 42,
+			gh_,
+			color_ + alpha_
+		);
+	}
 }
 
-bool ModeChangeParticle::GetDelFlag()
+bool CheckPointParticle::GetDelFlag()
 {
-	return del_;
+	return false;
 }

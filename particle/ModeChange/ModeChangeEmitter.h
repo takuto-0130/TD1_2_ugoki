@@ -4,6 +4,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <Novice.h>
+#include "particle/util/Util.h"
 
 class ModeChangeEmitter
 {

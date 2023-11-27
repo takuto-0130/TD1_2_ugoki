@@ -24,6 +24,14 @@ void FlyingParticle::Update()
 	// サイズを小さくしていく処理
 	size_ -= 1.5f;
 
+
+	if (green_ < 255) {
+		green_ += 12;
+	}
+	if (green_ > 255) {
+		green_ = 255;
+	}
+
 	// 透明にしていく処理
 	if (alpha_ > 0) {
 		alpha_ -= 4;
@@ -44,7 +52,7 @@ void FlyingParticle::Draw()
 			0, 0,
 			1, 1,
 			gh_,
-			0xFFFFFF00 + alpha_
+			0xFF000000 + alpha_ + (green_ << 16)
 		);
 	}
 }

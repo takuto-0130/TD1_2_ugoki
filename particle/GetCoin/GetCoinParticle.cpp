@@ -1,6 +1,6 @@
 ﻿#include "GetCoinParticle.h"
 
-GetCoinParticle::GetCoinParticle(Vector2 pos, Vector2 velocity,float speed)
+GetCoinParticle::GetCoinParticle(Vector2 pos, Vector2 velocity,float speed, unsigned int color)
 {
 	pos_.x = pos.x;
 	pos_.y = pos.y;
@@ -9,6 +9,8 @@ GetCoinParticle::GetCoinParticle(Vector2 pos, Vector2 velocity,float speed)
 	velocity_.y = velocity.y;
 
 	speed_ = speed;
+
+	color_ = color;
 }
 
 GetCoinParticle::~GetCoinParticle()
@@ -65,7 +67,7 @@ void GetCoinParticle::Draw(int scroll)
 		0, 0,
 		42, 42,
 		gh_,
-		0xFFFFFF00 + alpha_
+		color_ + alpha_
 	);
 }
 

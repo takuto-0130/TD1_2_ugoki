@@ -27,4 +27,5 @@ private:
 	float size_ = 42.0f;
 	int alpha_ = 128;
 	bool del_ = false;
+	int green_ = 0;
 };

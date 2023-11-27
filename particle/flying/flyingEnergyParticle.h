@@ -2,11 +2,11 @@
 #include<Novice.h>
 #include "Vector2.h"
 
-class JumpEnergyParticle
+class FlyingEnergyParticle
 {
 public:
-	JumpEnergyParticle(Vector2 pos, Vector2 angle, float size, unsigned int color);
-	~JumpEnergyParticle();
+	FlyingEnergyParticle(Vector2 pos, Vector2 angle, float size, unsigned int color);
+	~FlyingEnergyParticle();
 
 	void Update();
 	void Draw();

@@ -1,13 +1,15 @@
 ﻿#include "BackGroundParticle.h"
 #include "Matrix/Matrix.h"
 
-BackGroundParticle::BackGroundParticle(Vector2 pos, Vector2 velocity)
+BackGroundParticle::BackGroundParticle(Vector2 pos, Vector2 velocity, unsigned int color)
 {
 	pos_.x = pos.x;
 	pos_.y = pos.y;
 
 	velocity_.x = velocity.x;
 	velocity_.y = velocity.y;
+
+	color_ = color;
 }
 
 BackGroundParticle::~BackGroundParticle()
@@ -69,7 +71,7 @@ void BackGroundParticle::Draw(int scroll)
 		0, 0,
 		1, 1,
 		gh_,
-		0xFFFFFF00 + alpha_
+		color_ + alpha_
 	);
 }
 

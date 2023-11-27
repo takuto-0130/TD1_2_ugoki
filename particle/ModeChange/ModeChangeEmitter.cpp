@@ -43,7 +43,15 @@ void ModeChangeEmitter::Emit(Vector2 centerPos)
 		float velocityX = 1 * cosf(i * angle_) - 0 * sinf(i * angle_);
 		float velocityY = 1 * sinf(i * angle_) + 0 * cosf(i * angle_);
 
-		ModeChangeParticle newParticle = ModeChangeParticle({ particleX,particleY }, { velocityX,velocityY },30.0f);
+		unsigned int color = 0x00000000;
+		int R = 255;
+		int G = Random(30, 120);
+		int B = Random(30, 120);
+		color += R << 24;
+		color += G << 16;
+		color += B << 8;
+
+		ModeChangeParticle newParticle = ModeChangeParticle({ particleX,particleY }, { velocityX,velocityY },30.0f, color);
 		particleList.push_back(newParticle);
 	}
 
@@ -55,7 +63,15 @@ void ModeChangeEmitter::Emit(Vector2 centerPos)
 		float velocityX = 1 * cosf(i * angle_) - 0 * sinf(i * angle_);
 		float velocityY = 1 * sinf(i * angle_) + 0 * cosf(i * angle_);
 
-		ModeChangeParticle newParticle = ModeChangeParticle({ particleX,particleY }, { velocityX,velocityY }, 20.0f);
+		unsigned int color = 0x00000000;
+		int R = 255;
+		int G = Random(200, 255);
+		int B = Random(50, 150);
+		color += R << 24;
+		color += G << 16;
+		color += B << 8;
+
+		ModeChangeParticle newParticle = ModeChangeParticle({ particleX,particleY }, { velocityX,velocityY }, 20.0f, color);
 		particleList.push_back(newParticle);
 	}
 }

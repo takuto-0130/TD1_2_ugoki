@@ -50,6 +50,9 @@
     <Filter Include="particle\ModeChange">
       <UniqueIdentifier>{9a2c29f4-09a8-4b95-b3bc-6024784b4535}</UniqueIdentifier>
     </Filter>
+    <Filter Include="particle\CheckPoint">
+      <UniqueIdentifier>{b320b5df-6e55-4efb-95e7-f57361f93d2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -130,6 +133,18 @@
     </ClCompile>
     <ClCompile Include="particle\ModeChange\ModeChangeParticle.cpp">
       <Filter>particle\ModeChange</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\flying\flyingEnergyParticle.cpp">
+      <Filter>particle\flying</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\flying\flyingEnergyEmitter.cpp">
+      <Filter>particle\flying</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\CheckPoint\CheckPointEmitter.cpp">
+      <Filter>particle\CheckPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="particle\CheckPoint\CheckPointParticle.cpp">
+      <Filter>particle\CheckPoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +275,18 @@
     </ClInclude>
     <ClInclude Include="particle\ModeChange\ModeChangeParticle.h">
       <Filter>particle\ModeChange</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\flying\flyingEnergyParticle.h">
+      <Filter>particle\flying</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\flying\flyingEnergyEmitter.h">
+      <Filter>particle\flying</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\CheckPoint\CheckPointEmitter.h">
+      <Filter>particle\CheckPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="particle\CheckPoint\CheckPointParticle.h">
+      <Filter>particle\CheckPoint</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

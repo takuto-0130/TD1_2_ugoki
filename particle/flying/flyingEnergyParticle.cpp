@@ -1,8 +1,8 @@
-﻿#include "jumpEnergyParticle.h"
+﻿#include "flyingEnergyParticle.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-JumpEnergyParticle::JumpEnergyParticle(Vector2 pos, Vector2 angle, float size, unsigned int color)
+FlyingEnergyParticle::FlyingEnergyParticle(Vector2 pos, Vector2 angle, float size, unsigned int color)
 {
 	goalPos_ = pos;
 	startAngle_.x = (distance_ * angle.x);
@@ -13,16 +13,16 @@ JumpEnergyParticle::JumpEnergyParticle(Vector2 pos, Vector2 angle, float size, u
 	color_ = color;
 }
 
-JumpEnergyParticle::~JumpEnergyParticle()
+FlyingEnergyParticle::~FlyingEnergyParticle()
 {
 }
 
-void JumpEnergyParticle::EmitGoal(Vector2 pos)
+void FlyingEnergyParticle::EmitGoal(Vector2 pos)
 {
 	goalPos_ = pos;
 }
 
-void JumpEnergyParticle::Update()
+void FlyingEnergyParticle::Update()
 {
 	// 生成されてからのタイマーを増やす
 	timer_++;
@@ -45,7 +45,7 @@ void JumpEnergyParticle::Update()
 	}
 }
 
-void JumpEnergyParticle::Draw()
+void FlyingEnergyParticle::Draw()
 {
 	Novice::DrawQuad(
 		static_cast<int>(leftTop_.x), static_cast<int>(leftTop_.y),
@@ -59,7 +59,7 @@ void JumpEnergyParticle::Draw()
 	);
 }
 
-bool JumpEnergyParticle::GetDelFlag()
+bool FlyingEnergyParticle::GetDelFlag()
 {
 	return del_;
 }

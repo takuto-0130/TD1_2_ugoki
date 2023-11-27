@@ -47,6 +47,14 @@ void BackGroundEmitter::Emit(Vector2 playerPos)
 	float velocityX = 0;
 	float velocityY = static_cast<float>(Random(-1, 1));
 
-	BackGroundParticle newParticle = BackGroundParticle({ particleX,particleY }, { velocityX,velocityY });
+	unsigned int color = 0x00000000;
+	int R = Random(30, 100);
+	int G = 255;
+	int B = Random(30, 100);
+	color += R << 24;
+	color += G << 16;
+	color += B << 8;
+
+	BackGroundParticle newParticle = BackGroundParticle({ particleX,particleY }, { velocityX,velocityY }, color);
 	particleList.push_back(newParticle);
 }

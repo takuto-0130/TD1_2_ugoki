@@ -121,9 +121,13 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="Matrix\Matrix.cpp" />
     <ClCompile Include="particle\BackGroundParticle\BackGroundEmitter.cpp" />
     <ClCompile Include="particle\BackGroundParticle\BackGroundParticle.cpp" />
+    <ClCompile Include="particle\CheckPoint\CheckPointEmitter.cpp" />
+    <ClCompile Include="particle\CheckPoint\CheckPointParticle.cpp" />
     <ClCompile Include="particle\clearParticle\ClearEmitter.cpp" />
     <ClCompile Include="particle\clearParticle\ClearParticle.cpp" />
     <ClCompile Include="particle\flying\FlyingEmitter.cpp" />
+    <ClCompile Include="particle\flying\flyingEnergyEmitter.cpp" />
+    <ClCompile Include="particle\flying\flyingEnergyParticle.cpp" />
     <ClCompile Include="particle\flying\FlyingParticle.cpp" />
     <ClCompile Include="particle\GetCoin\GetCoinEmitter.cpp" />
     <ClCompile Include="particle\GetCoin\GetCoinParticle.cpp" />
@@ -169,9 +173,13 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="Matrix\Matrix.h" />
     <ClInclude Include="particle\BackGroundParticle\BackGroundEmitter.h" />
     <ClInclude Include="particle\BackGroundParticle\BackGroundParticle.h" />
+    <ClInclude Include="particle\CheckPoint\CheckPointEmitter.h" />
+    <ClInclude Include="particle\CheckPoint\CheckPointParticle.h" />
     <ClInclude Include="particle\clearParticle\ClearEmitter.h" />
     <ClInclude Include="particle\clearParticle\ClearParticle.h" />
     <ClInclude Include="particle\flying\FlyingEmitter.h" />
+    <ClInclude Include="particle\flying\flyingEnergyEmitter.h" />
+    <ClInclude Include="particle\flying\flyingEnergyParticle.h" />
     <ClInclude Include="particle\flying\FlyingParticle.h" />
     <ClInclude Include="particle\GetCoin\GetCoinEmitter.h" />
     <ClInclude Include="particle\GetCoin\GetCoinParticle.h" />

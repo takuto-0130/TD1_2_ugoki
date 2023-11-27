@@ -5,7 +5,7 @@
 class GetCoinParticle
 {
 public:
-	GetCoinParticle(Vector2 pos,Vector2 velocity,float speed);
+	GetCoinParticle(Vector2 pos,Vector2 velocity,float speed, unsigned int color);
 	~GetCoinParticle();
 
 	void Update();
@@ -30,5 +30,6 @@ private:
 	int alpha_ = 192;
 	bool del_ = false;
 	int timer_ = 0;
+	unsigned int color_;
 };
 
