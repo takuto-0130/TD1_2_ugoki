@@ -28,7 +28,7 @@ const float kCollisionChargeValue = 0.2f;
 //ジャンプでたまるエネルギー
 const float kJumpChargeValue = 40.0f;
 
-const float kFlyEnergyMax = 480.0f;
+const float kFlyEnergyMax = 360.0f;
 
 struct Player {
 	Vector2 pos;

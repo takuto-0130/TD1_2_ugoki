@@ -153,14 +153,14 @@ void PlayerStageCollision(MapChipNum& map, Player& a, float scroll) {
 		mapNumChange0(map, 5, a, a, scroll);
 		a.getCoin++;
 	}
-	a.maxFlyEnergy = kFlyEnergyMax + (120 * int(a.getCoin / 10.0f));
+	a.maxFlyEnergy = kFlyEnergyMax + (120 * int(a.getCoin / 5.0f));
 	a.kCollisionChargeValue = kCollisionChargeValue;
-	a.kJumpChargeValue = kJumpChargeValue + (12 * int(a.getCoin / 10.0f));
+	a.kJumpChargeValue = kJumpChargeValue + (12 * int(a.getCoin / 5.0f));
 }
 
 void RunMove(Player& player, char* keys, char* preKeys) {
 	player.isJump = 0;
-	if (preKeys[DIK_W] == 0 && keys[DIK_W] != 0 && player.jumpCount < player.maxJumpCount)
+	if ((preKeys[DIK_W] == 0 && keys[DIK_W] != 0 || preKeys[DIK_UP] == 0 && keys[DIK_UP] != 0) && player.jumpCount < player.maxJumpCount)
 	{
 		player.velocityY = player.jump;
 		player.jumpCount++;
@@ -178,11 +178,11 @@ void RunMove(Player& player, char* keys, char* preKeys) {
 void FlightMove(Player& player, char* keys) {
 
 	player.dirY = 0;
-	if (keys[DIK_W])
+	if (keys[DIK_W] || keys[DIK_UP])
 	{
 		player.dirY--;
 	}
-	if (keys[DIK_S])
+	if (keys[DIK_S] || keys[DIK_DOWN])
 	{
 		player.dirY++;
 	}
