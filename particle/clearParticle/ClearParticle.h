@@ -5,7 +5,7 @@
 class ClearParticle
 {
 public:
-	ClearParticle(Vector2 pos, Vector2 velocity, float size,float speed);
+	ClearParticle(Vector2 pos, Vector2 velocity, float size,float speed, unsigned int color);
 	~ClearParticle();
 
 	void Update();
@@ -30,5 +30,6 @@ private:
 	int alpha_ = 192;
 	bool del_ = false;
 	int timer_ = 0;
+	unsigned int color_;
 };
 

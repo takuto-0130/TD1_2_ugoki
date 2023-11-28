@@ -16,14 +16,19 @@ struct MapChipNum {
 	int mapData[kMapNumHeight][kMapNumWidth];
 };
 
+struct Timedisp {
+	int seconds[2];
+	int minutes[2];
+};
+
 //近くを通ってエネルギーが溜まる時の距離
 const float kChargeCollisionDistance = 16.0f;
 //近くを通って溜まるエネルギー
-const float kCollisionChargeValue = 2.0f;
+const float kCollisionChargeValue = 0.2f;
 //ジャンプでたまるエネルギー
 const float kJumpChargeValue = 40.0f;
 
-const float kFlyEnergyMax = 600.0f;
+const float kFlyEnergyMax = 480.0f;
 
 struct Player {
 	Vector2 pos;
@@ -72,3 +77,5 @@ void RunMove(Player& player, char* keys, char* preKeys);
 void FlightMove(Player& player, char* keys);
 
 void PlayerFlight(Player& now, Player& old, char* keys, char* preKeys);
+
+void TimeDisplay(const int time, Timedisp& a);

@@ -88,6 +88,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int titleTex = Novice::LoadTexture("./images/title.png");
 	int resultTex = Novice::LoadTexture("./images/result.png");
 	int goalTex = Novice::LoadTexture("./images/goal.png");
+	int retryTex = Novice::LoadTexture("./images/retry.png");
+	int numberTex = Novice::LoadTexture("./images/number.png");
+	int colonTex = Novice::LoadTexture("./images/colon.png");
+	int downTex = Novice::LoadTexture("./images/down.png");
+	int upTex = Novice::LoadTexture("./images/up.png");
+	//int poseButtonTex = Novice::LoadTexture("./images/poseButton.png");
+	int playerChangeTex = Novice::LoadTexture("./images/playerChange.png");
+
 
 	bool isCheckPoint = 0;
 	bool isOldCheckPoint = isCheckPoint;
@@ -97,6 +105,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int inGameTime = 0;
 
 	bool isPause = 0;
+	bool isEnd = 0;
+
+	int byou = int(inGameTime / 60) % 60;
+	int fun = int(inGameTime / 60) / 60;
 
 	FlyingEmitter flyingEmitter;
 	RunningEmitter runningEmitter;
@@ -111,6 +123,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	Vector2 playerWorldPos = { player.pos.x + scroll, player.pos.y };
 	Vector2 flightPlayerMS = { kFlightScrollSpeed, 0 };
+
+	Timedisp time;
+
+	TimeDisplay(inGameTime, time);
 
 	Vector2 gaugePos = { 100,((250 * (player.maxFlyEnergy / 600.0f) - 8) * player.flyEnergy / player.maxFlyEnergy) };
 
@@ -137,14 +153,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case TITLE:
 			inGameTime = 0;
 			isPause = 0;
-			if (keys[DIK_RETURN] !=0 && preKeys[DIK_RETURN] == 0)
+			if (keys[DIK_SPACE] !=0 && preKeys[DIK_SPACE] == 0)
 			{
 				scene = GAME;
 				backGroundEmitter.Update(playerWorldPos);
 			}
+			if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0) {
+				isEnd = 1;
+			}
 			break;
 		case GAME:
-			if (preKeys[DIK_RETURN] == 0 && keys[DIK_RETURN] != 0 && isClear == 1 && player.pos.x >= 1320) {
+			if (preKeys[DIK_SPACE] == 0 && keys[DIK_SPACE] != 0 && isClear == 1 && player.pos.x >= 1320) {
 				isCheckPoint = 0;
 				isClear = 0;
 				PlayerInitialize(player);
@@ -180,7 +199,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				scene = TITLE;
 			}
 
-			if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0) {
+			if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0 && isClear == 0) {
 				if(isPause == 1)
 				{
 					isPause = 0;
@@ -273,7 +292,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 					else
 					{
-						if (keys[DIK_RETURN])
+						if (keys[DIK_SPACE])
 						{
 							mapCollision = saveMapCollision;
 							player = savePlayer;
@@ -292,7 +311,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					{
 						playerDeadEmitter.Emit(player.pos);
 					}
-					jumpEnergyEmitter.Update(player.pos, player.isJump, player.life);
 					flyingEnergyEmitter.Update(player.pos, player.isChageArea, player.life);
 					playerDeadEmitter.Update();
 					checkPointEmitter.Update();
@@ -327,8 +345,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					PlayerVertex(player.pos, player.collisionLen, player.collisionLen, player.lt, player.rt, player.lb, player.rb);
 					backGroundEmitter.Update(playerWorldPos);
 				}
+				jumpEnergyEmitter.Update(player.pos, player.isJump, player.life, isClear);
 				getCoinEmitter.Update();
 				modeChangeEmitter.Update(flightPlayerMS);
+				byou = int(inGameTime / 60) % 60;
+				fun = int(inGameTime / 60) / 60;
+				TimeDisplay(inGameTime, time);
 			}
 			break;
 		}
@@ -380,8 +402,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		if (isClear == 0 && scene != TITLE)
 		{
-			Novice::DrawBox(20, 654, int(250 * (player.maxFlyEnergy / 600.0f)), 30, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			Novice::DrawBox(24, 658, int((250 * (player.maxFlyEnergy / 600.0f) - 8)* player.flyEnergy / player.maxFlyEnergy), 22, 0.0f, 0xFFAA88FF, kFillModeSolid);
+			Novice::DrawBox(20, 654, int(500 * (player.maxFlyEnergy / 600.0f)), 30, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+			Novice::DrawBox(24, 658, int((500 * (player.maxFlyEnergy / 600.0f) - 8)* player.flyEnergy / player.maxFlyEnergy), 22, 0.0f, 0xFFAA88FF, kFillModeSolid);
+			for(int i = 0; i < 2; i++)
+			{
+				Novice::DrawSpriteRect(1180 + 40*i, 0, 64 * time.seconds[i], 0, 64, 64, numberTex, 1.0f/12.0f, 1.0f/1.2f, 0.0f, 0xFFFFFFFF);
+			}
+			for (int i = 0; i < 2; i++)
+			{
+				Novice::DrawSpriteRect(1090 + 40 * i, 0, 64 * time.minutes[i], 0, 64, 64, numberTex, 1.0f / 12.0f, 1.0f / 1.2f, 0.0f, 0xFFFFFFFF);
+			}
+			Novice::DrawSprite(1155, 0, colonTex, 1.0f / 1.2f, 1.0f / 1.2f, 0.0f, 0xFFFFFFFF);
 		}
 
 
@@ -426,14 +457,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			clearEmitter.Draw();
 		}
 
+		if (isClear == 0 && scene != TITLE) {
+			if(player.isFly == 1 || player.flyEnergy == player.maxFlyEnergy)
+			{
+				Novice::DrawSprite(20, 561, playerChangeTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			}
+			else
+			{
+				Novice::DrawSprite(20, 561, playerChangeTex, 1.0f, 1.0f, 0.0f, 0x555555FF);
+			}
+			Novice::DrawSprite(186, 540, upTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			if(player.isFly == 1)
+			{
+				Novice::DrawSprite(186, 624, downTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			}
+			else
+			{
+				Novice::DrawSprite(186, 624, downTex, 1.0f, 1.0f, 0.0f, 0x555555FF);
+			}
+		}
+
 		//Novice::ScreenPrintf(20, 45, "1:AUTO  2:CANCEL  3:FLIGHT  4:kikakushonoyatu");
-		/*Novice::ScreenPrintf(20, 70, "RUN:SPACE(JUMP)  FLIGHT:W(UP) S(DWON)");
+		Novice::ScreenPrintf(20, 70, "RUN:SPACE(JUMP)  FLIGHT:W(UP) S(DWON)");
 		Novice::ScreenPrintf(20, 95, "SHIFT:ModeChange");
 		Novice::ScreenPrintf(20, 175, "coin = %d", player.getCoin);
 		Novice::ScreenPrintf(20, 200, "isJump = %d", player.isJump);
 		Novice::ScreenPrintf(20, 225, "%.02f", player.maxFlyEnergy);
 		Novice::ScreenPrintf(20, 250, "time = %d", inGameTime);
-		Novice::ScreenPrintf(20, 275, "%dseconds", int(inGameTime / 60));*/
+		Novice::ScreenPrintf(20, 275, "%dminutes:%dseconds", fun, byou);
+
+		if (isClear == 0 && player.life == 0) {
+			Novice::DrawSprite(0, 0, retryTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		}
 
 		if (isClear == 1 && player.pos.x >= 1240) {
 			Novice::DrawSprite(0, 0, resultTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
@@ -452,7 +507,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::EndFrame();
 
 		// ESCキーが押されたらループを抜ける
-		
+		if (isEnd == 1) {
+			break;
+		}
 	}
 
 	// ライブラリの終了

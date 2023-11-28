@@ -46,6 +46,8 @@ void ClearEmitter::Emit(Vector2 centerPos)
 	float angle_ = 22.5f * (float)M_PI / 180.f; // 一度で16個生成するため
 	float speed = static_cast<float>(Random(3, 4));
 
+	int p = Random(1,3);
+
 	for (int i = 0; i < 16; i++) {
 		float particleX = centerPos.x;
 		float particleY = centerPos.y;
@@ -55,7 +57,31 @@ void ClearEmitter::Emit(Vector2 centerPos)
 
 		float size = static_cast<float>(Random(10, 20));
 
-		ClearParticle newParticle = ClearParticle({ particleX,particleY }, { velocityX,velocityY }, size,speed);
+		unsigned int color = 0x00000000;
+		int R = 0;
+		int G = 0;
+		int B = 0;
+		if (p == 1)
+		{
+			R = 255;
+			G = Random(50, 120);
+			B = Random(50, 120);
+		}
+		if (p == 2) {
+			R = Random(70, 200);
+			G = 255;
+			B = Random(70, 200);
+		}
+		if (p == 3) {
+			R = Random(70, 200);
+			G = Random(70, 200);
+			B = 255;
+		}
+		color += R << 24;
+		color += G << 16;
+		color += B << 8;
+
+		ClearParticle newParticle = ClearParticle({ particleX,particleY }, { velocityX,velocityY }, size,speed, color);
 		particleList.push_back(newParticle);
 	}
 }

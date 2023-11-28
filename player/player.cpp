@@ -12,8 +12,8 @@ void PlayerInitialize(Player& a) {
 	a.pos = { 400,600 };
 	a.radius = blockSize / 2;
 	a.collisionLen = blockSize;
-	a.gravity = 0.3f;
-	a.jump = -10.0f;
+	a.gravity = 0.6f;
+	a.jump = -13.0f;
 	a.velocityY = 0;
 	a.flySpeedY = 4.0f;
 	a.fallSpeedMax = 12;
@@ -27,7 +27,7 @@ void PlayerInitialize(Player& a) {
 	a.dirY = 0;
 	a.isJump = 0;
 	a.kJumpChargeValue = 40.0f;
-	a.kCollisionChargeValue = 0.5f;
+	a.kCollisionChargeValue = 0.1f;
 	a.getCoin = 0;
 	a.isChageArea = 0;
 	PlayerVertex(a.pos, a.collisionLen, a.collisionLen, a.lt, a.rt, a.lb, a.rb);
@@ -153,14 +153,14 @@ void PlayerStageCollision(MapChipNum& map, Player& a, float scroll) {
 		mapNumChange0(map, 5, a, a, scroll);
 		a.getCoin++;
 	}
-	a.maxFlyEnergy = kFlyEnergyMax + (120 * int(a.getCoin / 5.0f));
-	a.kCollisionChargeValue = kCollisionChargeValue + (0.1f * int(a.getCoin / 5.0f));
-	a.kJumpChargeValue = kJumpChargeValue + (8 * int(a.getCoin / 5.0f));
+	a.maxFlyEnergy = kFlyEnergyMax + (120 * int(a.getCoin / 10.0f));
+	a.kCollisionChargeValue = kCollisionChargeValue;
+	a.kJumpChargeValue = kJumpChargeValue + (12 * int(a.getCoin / 10.0f));
 }
 
 void RunMove(Player& player, char* keys, char* preKeys) {
 	player.isJump = 0;
-	if ((preKeys[DIK_SPACE] == 0 && keys[DIK_SPACE] != 0 || preKeys[DIK_W] == 0 && keys[DIK_W] != 0 || preKeys[DIK_UP] == 0 && keys[DIK_UP] != 0) && player.jumpCount < player.maxJumpCount)
+	if (preKeys[DIK_W] == 0 && keys[DIK_W] != 0 && player.jumpCount < player.maxJumpCount)
 	{
 		player.velocityY = player.jump;
 		player.jumpCount++;
@@ -178,11 +178,11 @@ void RunMove(Player& player, char* keys, char* preKeys) {
 void FlightMove(Player& player, char* keys) {
 
 	player.dirY = 0;
-	if (keys[DIK_W] || keys[DIK_SPACE] || keys[DIK_UP])
+	if (keys[DIK_W])
 	{
 		player.dirY--;
 	}
-	if (keys[DIK_S] || keys[DIK_LCONTROL] || keys[DIK_RCONTROL] || keys[DIK_DOWN])
+	if (keys[DIK_S])
 	{
 		player.dirY++;
 	}
@@ -191,11 +191,11 @@ void FlightMove(Player& player, char* keys) {
 }
 
 void PlayerFlight(Player& now, Player& old, char* keys, char* preKeys) {
-	if (preKeys[DIK_LSHIFT] == 0 && keys[DIK_LSHIFT] != 0 && old.isFly == 0 && now.flyEnergy == now.maxFlyEnergy) {
+	if (preKeys[DIK_SPACE] == 0 && keys[DIK_SPACE] != 0 && old.isFly == 0 && now.flyEnergy == now.maxFlyEnergy) {
 		now.isFly = 1;
 	}
 	//シフトで飛行解除、ゲージ消失
-	if (preKeys[DIK_LSHIFT] == 0 && keys[DIK_LSHIFT] != 0 && old.isFly == 1) {
+	if (preKeys[DIK_SPACE] == 0 && keys[DIK_SPACE] != 0 && old.isFly == 1) {
 		now.flyEnergy = 0;
 	}
 	if (now.flyEnergy >= now.maxFlyEnergy) {
@@ -205,4 +205,19 @@ void PlayerFlight(Player& now, Player& old, char* keys, char* preKeys) {
 	if (now.flyEnergy <= 0) {
 		now.isFly = 0;
 	}
+}
+
+void TimeDisplay(const int time, Timedisp& a) {
+
+	int byou = int(time / 60) % 60;
+	int fun = int(time / 60) / 60;
+	a.seconds[0] = byou / 10;
+	byou = byou % 10;
+
+	a.seconds[1] = byou;
+
+	a.minutes[0] = fun / 10;
+	fun = fun % 10;
+
+	a.minutes[1] = fun;
 }

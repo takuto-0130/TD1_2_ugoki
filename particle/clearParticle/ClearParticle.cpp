@@ -1,6 +1,6 @@
 ﻿#include "ClearParticle.h"
 
-ClearParticle::ClearParticle(Vector2 pos, Vector2 velocity, float size, float speed)
+ClearParticle::ClearParticle(Vector2 pos, Vector2 velocity, float size, float speed, unsigned int color)
 {
 	pos_.x = pos.x;
 	pos_.y = pos.y;
@@ -10,6 +10,7 @@ ClearParticle::ClearParticle(Vector2 pos, Vector2 velocity, float size, float sp
 
 	size_ = size;
 	speed_ = speed;
+	color_ = color;
 }
 
 ClearParticle::~ClearParticle()
@@ -62,7 +63,7 @@ void ClearParticle::Draw()
 		0, 0,
 		1, 1,
 		gh_,
-		0xFFFFFF00 + alpha_
+		color_ + alpha_
 	);
 }
 
