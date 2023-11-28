@@ -5,7 +5,7 @@
 class PlayerDeadParticle
 {
 public:
-	PlayerDeadParticle(Vector2 pos,Vector2 velocity,float size);
+	PlayerDeadParticle(Vector2 pos,Vector2 velocity,float size, unsigned int color);
 	~PlayerDeadParticle();
 
 	void Update();
@@ -27,5 +27,6 @@ private:
 	float size_;
 	int alpha_ = 192;
 	bool del_ = false;
+	unsigned int color_;
 };
 

@@ -48,7 +48,7 @@ void PlayerDeadEmitter::Draw()
 			static_cast<int>(circlePos_.x), static_cast<int>(circlePos_.y),
 			circleRadius_, circleRadius_,
 			0.0f,
-			0xFFFFFF00 + circleAlpha_, kFillModeSolid
+			0xAAAA7700 + circleAlpha_, kFillModeSolid
 		);
 	}
 }
@@ -65,7 +65,15 @@ void PlayerDeadEmitter::Emit(Vector2 centerPos)
 
 		float size = static_cast<float>(Random(16, 24));
 
-		PlayerDeadParticle newParticle = PlayerDeadParticle({ particleX,particleY }, { velocityX,velocityY }, size);
+		unsigned int color = 0x00000000;
+		int R = Random(230, 250);
+		int G = Random(230, 250);
+		int B = Random(50, 150);
+		color += R << 24;
+		color += G << 16;
+		color += B << 8;
+
+		PlayerDeadParticle newParticle = PlayerDeadParticle({ particleX,particleY }, { velocityX,velocityY }, size, color);
 		particleList.push_back(newParticle);
 	}
 

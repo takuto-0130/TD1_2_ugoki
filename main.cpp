@@ -22,7 +22,7 @@
 char keys[256] = { 0 };
 char preKeys[256] = { 0 };
 
-const char kWindowTitle[] = "TD1_2回目_プロトタイプ";
+const char kWindowTitle[] = "1206_とべ！キューブ";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -76,7 +76,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	float saveScroll = scroll;
 	int bgScroll = 0;
 
-	int block = Novice::LoadTexture("white1x1.png");
+	//int block = Novice::LoadTexture("white1x1.png");
 	int map1Tex = Novice::LoadTexture("./images/map1.png");
 	int bgTex = Novice::LoadTexture("./images/backGround.png");
 	int playerRunTex = Novice::LoadTexture("./images/playerRunning.png");
@@ -85,6 +85,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int checkPointTex = Novice::LoadTexture("../images/checkPoint.png");
 	int coinTex = Novice::LoadTexture("./images/coin.png");
 	int energyBlockTex = Novice::LoadTexture("./images/energyBlock.png");
+	int titleTex = Novice::LoadTexture("./images/title.png");
+	int resultTex = Novice::LoadTexture("./images/result.png");
+	int goalTex = Novice::LoadTexture("./images/goal.png");
 
 	bool isCheckPoint = 0;
 	bool isOldCheckPoint = isCheckPoint;
@@ -134,14 +137,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		case TITLE:
 			inGameTime = 0;
 			isPause = 0;
-			if (keys[DIK_RETURN])
+			if (keys[DIK_RETURN] !=0 && preKeys[DIK_RETURN] == 0)
 			{
 				scene = GAME;
 				backGroundEmitter.Update(playerWorldPos);
 			}
 			break;
 		case GAME:
-			if (preKeys[DIK_R] == 0 && keys[DIK_R] != 0) {
+			if (preKeys[DIK_RETURN] == 0 && keys[DIK_RETURN] != 0 && isClear == 1 && player.pos.x >= 1320) {
 				isCheckPoint = 0;
 				isClear = 0;
 				PlayerInitialize(player);
@@ -173,7 +176,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				fclose(fp);//ファイルを閉じる
 				saveMapCollision = mapCollision;
+				playerTex = playerRunTex;
+				scene = TITLE;
 			}
+
 			if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0) {
 				if(isPause == 1)
 				{
@@ -310,6 +316,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						PlayerVertex(oldPlayer.pos, player.collisionLen, player.collisionLen, oldPlayer.lt, oldPlayer.rt, oldPlayer.lb, oldPlayer.rb);
 						PlayerVertex(player.pos, player.collisionLen, player.collisionLen, player.lt, player.rt, player.lb, player.rb);
 						PlayerStageCollision(mapCollision, player, scroll);
+						if (player.velocityY == 0) {
+							player.jumpCount = 0;
+						}
+						runningEmitter.Update({ player.pos.x - player.radius, player.pos.y + 14 }, player.jumpCount);
 					}
 
 
@@ -363,12 +373,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					//
 					if (mapCollision.mapData[y][x] == 400)
 					{
-						Novice::DrawSprite((x * blockSize) - int(scroll), y * blockSize, block, 41.0f, 41.0f, 0.0f, 0x444444FF);
+						Novice::DrawSprite((x * blockSize) - int(scroll), y * blockSize, goalTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 					}
 				}
 			}
 		}
-		if (isClear == 0)
+		if (isClear == 0 && scene != TITLE)
 		{
 			Novice::DrawBox(20, 654, int(250 * (player.maxFlyEnergy / 600.0f)), 30, 0.0f, 0xFFFFFFFF, kFillModeSolid);
 			Novice::DrawBox(24, 658, int((250 * (player.maxFlyEnergy / 600.0f) - 8)* player.flyEnergy / player.maxFlyEnergy), 22, 0.0f, 0xFFAA88FF, kFillModeSolid);
@@ -386,7 +396,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			Novice::DrawQuad(int(player.lt.x), int(player.lt.y), int(player.rt.x + 1), int(player.rt.y), int(player.lb.x), int(player.lb.y + 1), int(player.rb.x + 1), int(player.rb.y + 1), 0, 0, 42, 42, playerTex, 0xFFFFFFFF);
 			
-			if(isClear == 0)
+			if(scene != TITLE)
 			{
 				if (player.isFly == 1)
 				{
@@ -395,7 +405,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				}
 				else
 				{
-					runningEmitter.Draw();
+					if(player.pos.x < 1300)
+					{
+						runningEmitter.Draw();
+					}
 					jumpEnergyEmitter.Draw();
 				}
 			}
@@ -414,13 +427,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 
 		//Novice::ScreenPrintf(20, 45, "1:AUTO  2:CANCEL  3:FLIGHT  4:kikakushonoyatu");
-		Novice::ScreenPrintf(20, 70, "RUN:SPACE(JUMP)  FLIGHT:W(UP) S(DWON)");
+		/*Novice::ScreenPrintf(20, 70, "RUN:SPACE(JUMP)  FLIGHT:W(UP) S(DWON)");
 		Novice::ScreenPrintf(20, 95, "SHIFT:ModeChange");
 		Novice::ScreenPrintf(20, 175, "coin = %d", player.getCoin);
 		Novice::ScreenPrintf(20, 200, "isJump = %d", player.isJump);
 		Novice::ScreenPrintf(20, 225, "%.02f", player.maxFlyEnergy);
 		Novice::ScreenPrintf(20, 250, "time = %d", inGameTime);
-		Novice::ScreenPrintf(20, 275, "%dseconds", int(inGameTime / 60));
+		Novice::ScreenPrintf(20, 275, "%dseconds", int(inGameTime / 60));*/
+
+		if (isClear == 1 && player.pos.x >= 1240) {
+			Novice::DrawSprite(0, 0, resultTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		}
+
+		if (scene == TITLE) {
+			Novice::DrawSprite(0, 0, titleTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		}
 
 
 		///

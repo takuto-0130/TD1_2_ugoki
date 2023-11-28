@@ -9,7 +9,7 @@ void PlayerVertex(Vector2 center, int width, int height, Vector2& lt, Vector2& r
 };
 
 void PlayerInitialize(Player& a) {
-	a.pos = { 400,608 };
+	a.pos = { 400,600 };
 	a.radius = blockSize / 2;
 	a.collisionLen = blockSize;
 	a.gravity = 0.3f;
@@ -27,7 +27,7 @@ void PlayerInitialize(Player& a) {
 	a.dirY = 0;
 	a.isJump = 0;
 	a.kJumpChargeValue = 40.0f;
-	a.kCollisionChargeValue = 2.0f;
+	a.kCollisionChargeValue = 0.5f;
 	a.getCoin = 0;
 	a.isChageArea = 0;
 	PlayerVertex(a.pos, a.collisionLen, a.collisionLen, a.lt, a.rt, a.lb, a.rb);

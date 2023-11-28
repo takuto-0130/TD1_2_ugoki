@@ -1,6 +1,6 @@
 ﻿#include "PlayerDeadParticle.h"
 
-PlayerDeadParticle::PlayerDeadParticle(Vector2 pos, Vector2 velocity, float size)
+PlayerDeadParticle::PlayerDeadParticle(Vector2 pos, Vector2 velocity, float size, unsigned int color)
 {
 	pos_.x = pos.x;
 	pos_.y = pos.y;
@@ -9,6 +9,8 @@ PlayerDeadParticle::PlayerDeadParticle(Vector2 pos, Vector2 velocity, float size
 	velocity_.y = velocity.y;
 
 	size_ = size;
+
+	color_ = color;
 }
 
 PlayerDeadParticle::~PlayerDeadParticle()
@@ -54,7 +56,7 @@ void PlayerDeadParticle::Draw()
 		0, 0,
 		1, 1,
 		gh_,
-		0xFFFFFF00 + alpha_
+		color_ + alpha_
 	);
 }
 
