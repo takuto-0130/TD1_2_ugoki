@@ -231,6 +231,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	bool isSceneChange = 0;
 
+	int coinGaugeNum = int(player.getCoin) % 10;
+
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
 		// フレームの開始
@@ -245,7 +247,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		if (keys[DIK_0]) {
-			scroll = 37500;
+			scroll = 37770;
 		}
 
 
@@ -493,6 +495,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						backGroundEmitter.Update(playerWorldPos);
 					}
 					getCoinEmitter.Update(scene);
+					coinGaugeNum = int(player.getCoin) % 10;
 					jumpEnergyEmitter.Update(player.pos, player.isJump, player.life, isClear, scene);
 					modeChangeEmitter.Update(flightPlayerMS);
 					byou = int(inGameTime / 60) % 60;
@@ -573,10 +576,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		Novice::DrawSprite(0 - bgScroll, 0, bgTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 		Novice::DrawSprite(1280 - bgScroll, 0, bgTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-		Novice::DrawSprite(0 - int(scroll / 5), 75, setumei1Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
-		Novice::DrawSprite(1350 - int(scroll / 5), 0, setumei2Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
-		Novice::DrawSprite(2600 - int(scroll / 5), -40, setumei3Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
-		Novice::DrawSprite(700 - int(scroll / 5), 75, setumei4Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(100 - int(scroll / 5), 75, setumei1Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(800 - int(scroll / 5), 75, setumei4Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(1730 - int(scroll / 5), 0, setumei2Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(2820 - int(scroll / 5), -40, setumei3Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
 
 		for (int y = 0; y < kMapNumHeight; y++)
 		{
@@ -690,12 +693,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				Novice::DrawSprite(186, 624, downTex, 1.0f, 1.0f, 0.0f, 0x555555FF);
 			}
 			Novice::DrawSprite(20, 20, poseButtonTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			Novice::DrawBox(48, 535 - int(150 * (player.maxFlyEnergy / 360.0f)) - (5 * coinGaugeNum), 30, 5 * coinGaugeNum, 0.0f, 0xFFFFFFBB, kFillModeSolid);
 			Novice::DrawBox(48, 535 - int(150 * (player.maxFlyEnergy / 360.0f)), 30, int(150 * (player.maxFlyEnergy / 360.0f)), 0.0f, 0x555555FF, kFillModeSolid);
 			Novice::DrawBox(48, 535 - int((150 * (player.maxFlyEnergy / 360.0f)) * player.flyEnergy / player.maxFlyEnergy), 30, int((150 * (player.maxFlyEnergy / 360.0f)) * player.flyEnergy / player.maxFlyEnergy), 0.0f, 0xFFA044FF, kFillModeSolid);
-			Novice::DrawSprite(44, 181, gaugeTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			if(player.flyEnergy == player.maxFlyEnergy || player.isFly == 1)
+			{
+				Novice::DrawSprite(44, 181, gaugeTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+			}
+			else
+			{
+				Novice::DrawSprite(44, 181, gaugeTex, 1.0f, 1.0f, 0.0f, 0x666666FF);
+			}
+			Novice::DrawBox(296, 706, 688, 28, 0.0f, 0xFFFFFFFF, kFillModeSolid);
+			Novice::DrawBox(300, 710, int(680 * (scroll / 37770.0f)), 20, 0.0f, 0x4444FFFF, kFillModeSolid);
+			Novice::DrawSprite(289 + int(680 * (scroll / 37770.0f)), 690, playerFlyTex, 0.5f, 0.5f, 0.0f, 0xFFFFFFFF);
 		}
 
 		if (isClear == 0 && player.life == 0) {
+			Novice::DrawBox(0, 0, 1280, 756, 0.0f, 0x33333388, kFillModeSolid);
 			Novice::DrawSprite(0, 60, retryTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 		}
 

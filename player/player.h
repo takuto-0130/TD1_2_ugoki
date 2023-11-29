@@ -22,7 +22,7 @@ struct Timedisp {
 };
 
 //近くを通ってエネルギーが溜まる時の距離
-const float kChargeCollisionDistance = 22.0f;
+const float kChargeCollisionDistance = 32.0f;
 //近くを通って溜まるエネルギー
 const float kCollisionChargeValue = 0.2f;
 //ジャンプでたまるエネルギー
