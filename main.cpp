@@ -143,12 +143,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int gaugeLowSEHandle = Novice::LoadAudio("./Sounds/SE/gaugeLow.mp3");
 	int gaugeLowSE = -1;
 	bool isGaugeLowSE = 0;
+	int gaugeLowSETimer = 0;
 
 	int gameBGMHandle = Novice::LoadAudio("./Sounds/gameBGM/Mystic Edge.mp3");
 	int gameBGM = -1;
+	float gameVol = 0.0f;
 
 	int titleBGMHandle = Novice::LoadAudio("./Sounds/titleBGM/Mystic.mp3");
 	int titleBGM = -1;
+	float titleVol = 0.4f;
 
 
 	bool isCheckPoint = 0;
@@ -409,8 +412,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							isGaugeIncreaseSE = 1;
 						}
 
-						if (player.flyEnergy < 105 && player.isFly == 1 && player.isChageArea == 0) {
+						if (player.flyEnergy < 121 && player.isFly == 1 && player.isChageArea == 0) {
 							isGaugeLowSE = 1;
+							gaugeLowSETimer++;
+						}
+						else {
+							gaugeLowSETimer = 0;
+						}
+
+						if (player.isChageArea == 1 && player.life > 0) {
+							gaugeRecoverySETimer++;
+						}
+						else {
+							gaugeRecoverySETimer = 0;
 						}
 					}
 					else
@@ -744,41 +758,44 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 		}
 
-		if (player.isChageArea == 1 && player.life > 0) {
-			gaugeRecoverySETimer++;
-			/*Novice::StopAudio(gaugeRecoverySE);
-			if (!Novice::IsPlayingAudio(gaugeRecoverySE) || gaugeRecoverySE == -1) {
-				gaugeRecoverySE = Novice::PlayAudio(gaugeRecoverySEHandle, 0, 0.6f);
-			}*/
-		}
-		else {
-			gaugeRecoverySETimer = 0;
-		}
-
-		if (gaugeRecoverySETimer % 40 == 1) {
+		if (gaugeRecoverySETimer % 35 == 1) {
 			Novice::StopAudio(gaugeRecoverySE);
 			if (!Novice::IsPlayingAudio(gaugeRecoverySE) || gaugeRecoverySE == -1) {
 				gaugeRecoverySE = Novice::PlayAudio(gaugeRecoverySEHandle, 0, 0.6f);
 			}
 		}
+		if (gaugeRecoverySETimer == 0) {
+			Novice::StopAudio(gaugeRecoverySE);
+		}
 
+		if (gaugeLowSETimer % 40 == 1) {
+			Novice::StopAudio(gaugeLowSE);
+		}
 		if (isGaugeLowSE == 1) {
 			if (!Novice::IsPlayingAudio(gaugeLowSE) || gaugeLowSE == -1) {
 				gaugeLowSE = Novice::PlayAudio(gaugeLowSEHandle, 0, 0.8f);
 			}
 		}
+		if (player.isFly == 0) {
+			Novice::StopAudio(gaugeLowSE);
+		}
+
 
 		if (scene == TITLE) {
 			Novice::StopAudio(gameBGM);
+			titleVol = 0.4f;
+			gameVol = 0.0f;
 			if (!Novice::IsPlayingAudio(titleBGM) || titleBGM == -1) {
-				titleBGM = Novice::PlayAudio(titleBGMHandle, 1, 0.4f);
+				titleBGM = Novice::PlayAudio(titleBGMHandle, 0, titleVol);
 			}
 		}
 
-		if (isStartGame == 1) {
+		if (scene == GAME) {
 			Novice::StopAudio(titleBGM);
+			titleVol = 0.0f;
+			gameVol = 0.4f;
 			if (!Novice::IsPlayingAudio(gameBGM) || gameBGM == -1) {
-				gameBGM = Novice::PlayAudio(gameBGMHandle, 1, 0.4f);
+				gameBGM = Novice::PlayAudio(gameBGMHandle, 0, gameVol);
 			}
 		}
 

@@ -79,8 +79,6 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 				}
 			}
 		}
-
-
 	}
 
 
