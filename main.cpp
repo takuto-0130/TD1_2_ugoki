@@ -788,7 +788,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			titleVol = 0.4f;
 			gameVol = 0.0f;
 			if (!Novice::IsPlayingAudio(titleBGM) || titleBGM == -1) {
-				titleBGM = Novice::PlayAudio(titleBGMHandle, 0, titleVol);
+				titleBGM = Novice::PlayAudio(titleBGMHandle, 0, 0.0f);
 			}
 		}
 		else {
@@ -796,9 +796,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			titleVol = 0.0f;
 			gameVol = 0.4f;
 			if (!Novice::IsPlayingAudio(gameBGM) || gameBGM == -1) {
-				gameBGM = Novice::PlayAudio(gameBGMHandle, 0, gameVol);
+				gameBGM = Novice::PlayAudio(gameBGMHandle, 0, 0.0f);
 			}
 		}
+		Novice::SetAudioVolume(titleBGM, titleVol);
+		Novice::SetAudioVolume(gameBGM, gameVol);
 
 		if (isClear == 1 && player.pos.x >= 1240) {
 			Novice::DrawSprite(0, 0, resultTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
