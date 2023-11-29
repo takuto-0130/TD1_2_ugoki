@@ -266,6 +266,22 @@ void Title::Draw() {
 			1, 1, 0.0f,
 			0xFFFFFFFF
 		);
+
+		if (BgDraw_ == 1) {
+
+			Novice::DrawSprite(
+				950, 700,
+				creditTex,
+				1, 1, 0.0f,
+				0xFFFFFFFF
+			);
+			Novice::DrawSprite(
+				30, 20,
+				escTex,
+				1, 1, 0.0f,
+				0xFFFFFFFF
+			);
+		}
 	}
 
 

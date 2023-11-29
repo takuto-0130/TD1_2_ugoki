@@ -48,6 +48,8 @@ private:
 	int timecount_[5];
 	int Titleend_;
 	int EnterHet_;
+	int creditTex = Novice::LoadTexture("./images/credit.png");
+	int escTex = Novice::LoadTexture("./images/esc.png");
 
 public:
 

@@ -136,6 +136,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int selectSE = -1;
 	bool isSelectSE = 0;
 
+	int gaugeRecoverySEHandle = Novice::LoadAudio("./Sounds/SE/gaugeRecovery.mp3");
+	int gaugeRecoverySE = -1;
+
+	int gaugeLowSEHandle = Novice::LoadAudio("./Sounds/SE/gaugeLow.mp3");
+	int gaugeLowSE = -1;
+	bool isGaugeLowSE = 0;
+
+	int gameBGMHandle = Novice::LoadAudio("./Sounds/gameBGM/Mystic Edge.mp3");
+	int gameBGM = -1;
+
+	int titleBGMHandle = Novice::LoadAudio("./Sounds/titleBGM/Mystic.mp3");
+	int titleBGM = -1;
+
 
 	bool isCheckPoint = 0;
 	bool isOldCheckPoint = isCheckPoint;
@@ -147,6 +160,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	
 	int bestTime = 0;
 	Timedisp bestTimeDisp;
+
+	FILE* file;
+	error = fopen_s(&file, "./timeData/bestTime.csv", "r");
+	if (error != 0) {
+		return 0;
+	}
+	else
+	{
+		fscanf_s(file, "%d", &bestTime);
+	}
+	fclose(file);
+
+	int bufferTime = bestTime;
+
+	int afterClearTimer = 0;
 
 	int pauseMenu = 0;
 	bool isPause = 0;
@@ -215,9 +243,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		isPlayerDeadSE = 0;
 		isSelectSE = 0;
 		isBackToTitle = 0;
+		isGaugeLowSE = 0;
 
 		switch (scene) {
 		case TITLE:
+			afterClearTimer = 0;
 			isPause = 0;
 			inGameTime = 0;
 			isPause = 0;
@@ -377,9 +407,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							gaugeSETimer = 0;
 							isGaugeIncreaseSE = 1;
 						}
+
+						if (player.flyEnergy < 110 && player.isFly == 1 && player.isChageArea == 0) {
+							isGaugeLowSE = 1;
+						}
 					}
 					else
 					{
+						afterClearTimer++;
 						player.isFly = 0;
 						if (player.pos.x < 1320) {
 							player.pos.x += kRunScrollSpeed;
@@ -396,6 +431,29 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 								player.jumpCount = 0;
 							}
 							runningEmitter.Update({ player.pos.x - player.radius, player.pos.y + 14 }, player.jumpCount);
+						}
+						if (afterClearTimer == 2) {
+							error = fopen_s(&file, "./timeData/bestTime.csv", "r");
+							if (error != 0) {
+								return 0;
+							}
+							else
+							{
+								fscanf_s(file, "%d", &bestTime);
+							}
+							fclose(file);
+							if (inGameTime < bestTime) {
+								bufferTime = inGameTime;
+							}
+							error = fopen_s(&file, "./timeData/bestTime.csv", "w");
+							if (error != 0) {
+								return 0;
+							}
+							else
+							{
+								fprintf_s(file, "%d", bufferTime);
+							}
+							fclose(file);
 						}
 
 
@@ -628,7 +686,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::ScreenPrintf(20, 200, "isJump = %d", player.isJump);
 		Novice::ScreenPrintf(20, 225, "%.02f", player.maxFlyEnergy);
 		Novice::ScreenPrintf(20, 250, "time = %d", inGameTime);
-		Novice::ScreenPrintf(20, 275, "%dminutes:%dseconds", fun, byou);*/
+		Novice::ScreenPrintf(20, 275, "%f : %f", player.flyEnergy, oldPlayer.flyEnergy);*/
 
 		if (isCheckPointSE == 1) {
 			if (!Novice::IsPlayingAudio(checkPointSE) || checkPointSE == -1) {
@@ -682,6 +740,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::StopAudio(selectSE);
 			if (!Novice::IsPlayingAudio(selectSE) || selectSE == -1) {
 				selectSE = Novice::PlayAudio(selectSEHandle, 0, 0.6f);
+			}
+		}
+
+		if (player.isChageArea == 1 && player.life > 0) {
+			Novice::StopAudio(gaugeRecoverySE);
+			if (!Novice::IsPlayingAudio(gaugeRecoverySE) || gaugeRecoverySE == -1) {
+				gaugeRecoverySE = Novice::PlayAudio(gaugeRecoverySEHandle, 0, 0.6f);
+			}
+		}
+
+		if (isGaugeLowSE == 1) {
+			if (!Novice::IsPlayingAudio(gaugeLowSE) || gaugeLowSE == -1) {
+				gaugeLowSE = Novice::PlayAudio(gaugeLowSEHandle, 0, 0.8f);
+			}
+		}
+
+		if (scene == TITLE) {
+			Novice::StopAudio(gameBGM);
+			if (!Novice::IsPlayingAudio(titleBGM) || titleBGM == -1) {
+				titleBGM = Novice::PlayAudio(titleBGMHandle, 1, 0.4f);
+			}
+		}
+
+		if (isStartGame == 1) {
+			Novice::StopAudio(titleBGM);
+			if (!Novice::IsPlayingAudio(gameBGM) || gameBGM == -1) {
+				gameBGM = Novice::PlayAudio(gameBGMHandle, 1, 0.4f);
 			}
 		}
 
