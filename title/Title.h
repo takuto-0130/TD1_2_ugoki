@@ -34,6 +34,8 @@ private:
 	int particlecount_[50];
 	int particlestart_;
 
+	Vector2 backGroundPos_[2];
+
 	Vector2 chargeBox;
 	int Boxsize_;
 	int Restart_;
@@ -48,23 +50,31 @@ private:
 	int timecount_[5];
 	int Titleend_;
 	int EnterHet_;
-	int creditTex = Novice::LoadTexture("./images/credit.png");
-	int escTex = Novice::LoadTexture("./images/esc.png");
+	int Voicefiag_[2];
+	int VoiceHandle_[2];
 
 public:
 
-	int Resources[6] = {
+	int Resources[8] = {
 	Novice::LoadTexture("./images/tltie1.png"),
 	Novice::LoadTexture("./images/tltie2.png"),
 	Novice::LoadTexture("./images/SPACE.png"),
 	Novice::LoadTexture("./images/frame.png"),
 	Novice::LoadTexture("./images/backGround.png"),
 	Novice::LoadTexture("./images/coin.png"),
+    Novice::LoadTexture("./images/credit.png"),
+	Novice::LoadTexture("./images/esc.png"),
 	};
 
-
+	int Voice[2] = {
+		Voice[0] = Novice::LoadAudio("./Sounds/SE/change.mp3"),
+		Voice[1] = Novice::LoadAudio("./Sounds/SE/SceneChange.mp3"),
+	};
 
 	void Init() {
+
+		Voicefiag_[0] = -1;
+		Voicefiag_[1] = -1;
 
 		titlepos_[0] = { 300,800, };
 		titlepos_[1] = { 410,800, };
@@ -72,7 +82,8 @@ public:
 		titlepos_[3] = { 1600,180, };
 		Space_ = { 540, 800 };
 		chargeBox = Space_;
-
+		backGroundPos_[0] = { 0.0f, 0.0f };
+		backGroundPos_[1] = { 1280.0f, 0.0f };
 		Restart_ = 0;
 		fige_ = 1;
 		Boxsize_ = 0;
@@ -84,6 +95,7 @@ public:
 				acceleration_[i] = { 0.0f,0.3f, };
 			}
 			if (i < 5) {
+
 				titlecount_[i] = { 0 };
 				timecount_[i] = { (i * 10) + 10 };
 			}

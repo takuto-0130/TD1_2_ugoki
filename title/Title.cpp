@@ -4,8 +4,11 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 
 	isSceneChange = 0;
 
-	//---タイトルに戻る処理---// (  未完成　)
-	//(仮にZを押したとき)
+	if (Titleend_ == 1) {
+		Novice::StopAudio(VoiceHandle_[1]);
+	}
+
+	//---タイトルに戻る処理---//
 	if (isBackTitle == 1) {
 		Restart_ = 1;
 		isGameStart = 0;
@@ -24,15 +27,35 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 		Init();
 	}
 	//--------------------------------------//
+	if (Voicefiag_[0] == 1) {
+		VoiceHandle_[0] = Novice::PlayAudio(Voice[0], true, 0.019f);
+		Voicefiag_[0] = 0;
+	}
 
 	//---SPACE---//
 	if (Space_.y <= 450.0f) {
 		if (keys[DIK_SPACE]) {
-			Boxsize_ += 5;
+			Boxsize_ += 2;
+			if (Voicefiag_[0] == -1) {
+				Voicefiag_[0] = 1;
+			}
 			if (Boxsize_ > 205) {
-				Boxsize_ = 205;
+				Voicefiag_[0] = -2;
+				Novice::StopAudio(VoiceHandle_[0]);
+				if (Voicefiag_[1] == -1) {
+					Voicefiag_[1] = 1;
+					if (Voicefiag_[1] == 1) {
+						VoiceHandle_[1] = Novice::PlayAudio(Voice[1], false, 0.015f);
+						Voicefiag_[1] = 0;
+					}
+				}
+				Boxsize_ = 208;
 				EnterHet_ = 1;
 			}
+		}
+		else if (Voicefiag_[0] >= 0) {
+			Novice::StopAudio(VoiceHandle_[0]);
+			Voicefiag_[0] = -1;
 		}
 		if (!keys[DIK_SPACE] && (Boxsize_ < 205)) {
 			if (Boxsize_ > 0) {
@@ -43,6 +66,10 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 			}
 		}
 	}
+
+
+
+
 
 	//---シーンの移り変わり---//
 	if (EnterHet_ == 1 or Restart_ == 1) {
@@ -64,6 +91,8 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 				Titleend_ = 1;
 				BgDraw_ = 0;
 				particlestart_ = 0;
+				backGroundPos_[0].x = 0.0f;
+				backGroundPos_[1].x = 1280.0f;
 			}
 
 			if (Box[0].x < -1500) {
@@ -79,6 +108,8 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 				}
 			}
 		}
+
+
 	}
 
 
@@ -189,9 +220,16 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 	chargeBox.x = Space_.x + 2;
 	chargeBox.y = Space_.y + 1;
 
+	if (Titleend_ == 0) {
+		for (int i = 0; i < 2; i++) {
+			backGroundPos_[i].x -= 1;
+			if (backGroundPos_[i].x < -1280) {
+				backGroundPos_[i].x = 1279.0f;
+			}
+		}
+	}
 
 }
-
 
 void Title::Draw() {
 
@@ -199,13 +237,14 @@ void Title::Draw() {
 
 	if (BgDraw_ == 1) {
 
-		Novice::DrawSprite(
-			0, 0,
-			Resources[4],
-			1, 1, 0.0f,
-			0xFFFFFFFF
-		);
-
+		for (int i = 0; i < 2; i++) {
+			Novice::DrawSprite(
+				int(backGroundPos_[i].x), int(backGroundPos_[i].y),
+				Resources[4],
+				1, 1, 0.0f,
+				0xFFFFFFFF
+			);
+		}
 		Novice::DrawSprite(
 			280 + 25, 15,
 			Resources[3],
@@ -264,24 +303,23 @@ void Title::Draw() {
 			1, 1, 0.0f,
 			0xFFFFFFFF
 		);
-
-		if (BgDraw_ == 1) {
-
-			Novice::DrawSprite(
-				950, 700,
-				creditTex,
-				1, 1, 0.0f,
-				0xFFFFFFFF
-			);
-			Novice::DrawSprite(
-				30, 20,
-				escTex,
-				1, 1, 0.0f,
-				0xFFFFFFFF
-			);
-		}
 	}
 
+	if (BgDraw_ == 1) {
+
+		Novice::DrawSprite(
+			950, 700,
+			Resources[6],
+			1, 1, 0.0f,
+			0xFFFFFFFF
+		);
+		Novice::DrawSprite(
+			30, 20,
+			Resources[7],
+			1, 1, 0.0f,
+			0xFFFFFFFF
+		);
+	}
 
 	for (int i = 0; i < 2; i++) {
 		Novice::DrawBox(

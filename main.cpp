@@ -102,6 +102,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int modoruTex = Novice::LoadTexture("./images/modoru.png");
 	int tudukeruTex = Novice::LoadTexture("./images/tudukeru.png");
 	int setumei1Tex = Novice::LoadTexture("./images/setumei1.png");
+	int setumei2Tex = Novice::LoadTexture("./images/setumei2.png");
+	int setumei3Tex = Novice::LoadTexture("./images/setumei3.png");
 
 
 
@@ -560,7 +562,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		Novice::DrawSprite(0 - bgScroll, 0, bgTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 		Novice::DrawSprite(1280 - bgScroll, 0, bgTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-		Novice::DrawSprite( - int(scroll / 5), 0, setumei1Tex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
+		Novice::DrawSprite(200 - int(scroll / 5), 75, setumei1Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(1350 - int(scroll / 5), 0, setumei2Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(2600 - int(scroll / 5), -40, setumei3Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
 
 		for (int y = 0; y < kMapNumHeight; y++)
 		{
