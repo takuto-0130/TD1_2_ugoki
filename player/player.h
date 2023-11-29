@@ -10,7 +10,7 @@
 #include <Novice.h>
 
 const int kMapNumHeight = 18;
-const int kMapNumWidth = 312;
+const int kMapNumWidth = 936;
 const int blockSize = 42;
 struct MapChipNum {
 	int mapData[kMapNumHeight][kMapNumWidth];
