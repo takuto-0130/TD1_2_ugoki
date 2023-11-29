@@ -1,4 +1,5 @@
 ﻿#include "title.h"
+#include <math.h>
 
 void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isSceneChange) {
 
@@ -19,7 +20,7 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 		}
 	}
 	//---タイトルの初期化---//
-	if (Restart_ == 1 && Box[1].x < 700 && Box[1].x > 630) {
+	if (Restart_ == 1 && Box[0].x + 1280 > 640) {
 		BgDraw_ = 1;
 		isSceneChange = 1;
 	}
@@ -35,7 +36,7 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 	//---SPACE---//
 	if (Space_.y <= 450.0f) {
 		if (keys[DIK_SPACE]) {
-			Boxsize_ += 2;
+			Boxsize_ += 4;
 			if (Voicefiag_[0] == -1) {
 				Voicefiag_[0] = 1;
 			}
@@ -45,7 +46,7 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 				if (Voicefiag_[1] == -1) {
 					Voicefiag_[1] = 1;
 					if (Voicefiag_[1] == 1) {
-						VoiceHandle_[1] = Novice::PlayAudio(Voice[1], false, 0.015f);
+						VoiceHandle_[1] = Novice::PlayAudio(Voice[1], false, 0.016f);
 						Voicefiag_[1] = 0;
 					}
 				}
@@ -65,10 +66,10 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 				Boxsize_ = 0;
 			}
 		}
+
+
+
 	}
-
-
-
 
 
 	//---シーンの移り変わり---//
@@ -160,12 +161,8 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 				time_ = 0;
 
 			}
-
-
 		}
-
 	}
-
 
 	//---タイトル(キューブ)とSPACE---//
 	if (fige_ == 1 && titlepos_[0].y < 450) {
@@ -220,23 +217,63 @@ void Title::Update(char* keys, bool& isGameStart, bool isBackTitle, bool& isScen
 	chargeBox.x = Space_.x + 2;
 	chargeBox.y = Space_.y + 1;
 
+	//背景の動き
 	if (Titleend_ == 0) {
 		for (int i = 0; i < 2; i++) {
-			backGroundPos_[i].x -= 1;
+			backGroundPos_[i].x -= 5;
 			if (backGroundPos_[i].x < -1280) {
-				backGroundPos_[i].x = 1279.0f;
+				backGroundPos_[i].x = 1275.0f;
 			}
 		}
 	}
 
+	//---プレイヤーの動き---//
+
+	//平行移動
+	if (titleplayerfigr_ == 0) {
+		titleplayer_.x += 4;
+	}
+	//波線移動
+	if (titleplayerfigr_ == 1) {
+		titleplayer_.x += 4;
+		titleplayer_.y = int(sinf(theta) * amplitude_) + 580.0f;
+		theta += float(M_PI) * 1.0 / 240.0f;
+	}
+	//ジャンプ移動
+	if (titleplayerfigr_ == 2) {
+		titleplayertime_++;
+		titleplayer_.x += 4;
+		if (titleplayer_.y == 658 && titleplayertime_ == 1) {
+			junpfige_ = 1;
+			titleplayerveloclty_.y = -15.0f;
+		}
+		if (junpfige_ == 1) {
+			titleplayerveloclty_.y += titleplayeracceleration_.y;
+			titleplayer_.y += titleplayerveloclty_.y;
+		}
+		if (titleplayer_.y > 658) {
+			junpfige_ = 0;
+			titleplayerveloclty_.y = 0.0f;
+			titleplayeracceleration_.y = 0.8f;
+			titleplayer_.y = 658.0f;
+		}
+		if (titleplayertime_ >= 130) {
+			titleplayertime_ = 0;
+		}
+	}
+
+	//---移動をランダムに振り分け---//
+	if (titleplayer_.x > 1280) {
+		titleplayerfigr_ = rand() % 3 + 0;
+		titleplayer_ = { -400.0f,658.0f };
+		titleplayertime_ = 0;
+	}
 }
 
 void Title::Draw() {
 
-	//Novice::ScreenPrintf(0, 50, "%d", time_);
-
 	if (BgDraw_ == 1) {
-
+		//---ブロック---//
 		for (int i = 0; i < 2; i++) {
 			Novice::DrawSprite(
 				int(backGroundPos_[i].x), int(backGroundPos_[i].y),
@@ -245,17 +282,35 @@ void Title::Draw() {
 				0xFFFFFFFF
 			);
 		}
+		//---フレーム---//
 		Novice::DrawSprite(
-			280 + 25, 15,
+			280 + 25, 15 + 100,
 			Resources[3],
 			1, 1, 0.0f,
 			0xFFFFFFFF
 		);
+		//---ブロック---//
+		if (Titleend_ == 1) {
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 40; j++) {
+
+					Novice::DrawSprite(
+						(j * 42), 0,
+						Resources[9],
+						1, 1,
+						0.0f, 0x555566FF);
+
+					Novice::DrawSprite(
+						(j * 42), (i * 42) + 700,
+						Resources[9],
+						1, 1,
+						0.0f, 0x555566FF);
+				}
+			}
+		}
 	}
 
-
 	if (Titleend_ == 0) {
-
 		//---パーティクル---//
 		for (int i = 0; i < 50; i++) {
 			Novice::DrawSprite(
@@ -265,10 +320,34 @@ void Title::Draw() {
 				0.0f, 0xFFFFFFFF);
 		}
 
+		//---ブロック---//
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 40; j++) {
+
+				Novice::DrawSprite(
+					(j * 42), 0,
+					Resources[9],
+					1, 1,
+					0.0f, 0x555566FF);
+
+				Novice::DrawSprite(
+					(j * 42), (i * 42) + 700,
+					Resources[9],
+					1, 1,
+					0.0f, 0x555566FF);
+			}
+		}
+		//---プレイヤー---//
+		Novice::DrawSprite(
+			int(titleplayer_.x), int(titleplayer_.y),
+			Resources[8],
+			1, 1, 0.0f,
+			0xFFFFFFFF
+		);
 		//---とべ！---//
 		for (int i = 0; i < 3; i++) {
 			Novice::DrawSpriteRect(
-				int(titlepos_[i].x) + 25, int(titlepos_[i].y),
+				int(titlepos_[i].x) + 25, int(titlepos_[i].y)+100,
 				int(SpritePos_[i].x), int(SpritePos_[i].y),
 				SpriteWidth_[i], Spriteheight_,
 				Resources[0],
@@ -281,7 +360,7 @@ void Title::Draw() {
 
 		//---キューブ---//
 		Novice::DrawSprite(
-			int(titlepos_[3].x) + 25, int(titlepos_[3].y),
+			int(titlepos_[3].x) + 25, int(titlepos_[3].y)+100,
 			Resources[1],
 			1, 1, 0.0f,
 			0xFFFFFFFF
@@ -289,7 +368,7 @@ void Title::Draw() {
 
 		//---SpaceのBox---//
 		Novice::DrawBox(
-			int(chargeBox.x), int(chargeBox.y),
+			int(chargeBox.x), int(chargeBox.y)+50,
 			Boxsize_, 63,
 			0.0f,
 			0x00FF00BB,
@@ -298,7 +377,7 @@ void Title::Draw() {
 
 		//---Space---//
 		Novice::DrawSprite(
-			int(Space_.x), int(Space_.y),
+			int(Space_.x), int(Space_.y)+50,
 			Resources[2],
 			1, 1, 0.0f,
 			0xFFFFFFFF
@@ -306,21 +385,21 @@ void Title::Draw() {
 	}
 
 	if (BgDraw_ == 1) {
-
+		//---効果音---//
 		Novice::DrawSprite(
 			950, 700,
 			Resources[6],
 			1, 1, 0.0f,
 			0xFFFFFFFF
 		);
+		//---Esc---//
 		Novice::DrawSprite(
-			30, 20,
+			30, 45,
 			Resources[7],
 			1, 1, 0.0f,
 			0xFFFFFFFF
 		);
 	}
-
 	for (int i = 0; i < 2; i++) {
 		Novice::DrawBox(
 			int(Box[i].x), int(Box[i].y),
@@ -331,5 +410,4 @@ void Title::Draw() {
 		);
 
 	}
-
 }

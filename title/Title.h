@@ -53,17 +53,28 @@ private:
 	int Voicefiag_[2];
 	int VoiceHandle_[2];
 
+	Vector2 titleplayer_;
+	Vector2 titleplayerveloclty_;
+	Vector2 titleplayeracceleration_;
+	int titleplayerfigr_;
+	float theta;
+	float amplitude_;
+	int junpfige_;
+	int titleplayertime_;
+
 public:
 
-	int Resources[8] = {
+	int Resources[10] = {
 	Novice::LoadTexture("./images/tltie1.png"),
 	Novice::LoadTexture("./images/tltie2.png"),
 	Novice::LoadTexture("./images/SPACE.png"),
 	Novice::LoadTexture("./images/frame.png"),
 	Novice::LoadTexture("./images/backGround.png"),
 	Novice::LoadTexture("./images/coin.png"),
-    Novice::LoadTexture("./images/credit.png"),
+	Novice::LoadTexture("./images/credit.png"),
 	Novice::LoadTexture("./images/esc.png"),
+	Novice::LoadTexture("./images/player.png"),
+	Novice::LoadTexture("./images/map1.png"),
 	};
 
 	int Voice[2] = {
@@ -72,6 +83,15 @@ public:
 	};
 
 	void Init() {
+
+		titleplayer_ = { -500.0f,658.0f };
+		titleplayerveloclty_ = { 0.0f,0.0f };
+		titleplayeracceleration_ = { 0.0f,0.8f };
+		titleplayerfigr_ = rand() % 3 + 0;
+		junpfige_ = 0;
+		titleplayertime_ = 0;
+		theta = 4.0f;
+		amplitude_ = 70.0f;
 
 		Voicefiag_[0] = -1;
 		Voicefiag_[1] = -1;

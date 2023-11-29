@@ -96,7 +96,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int upTex = Novice::LoadTexture("./images/up.png");
 	int poseButtonTex = Novice::LoadTexture("./images/poseButton.png");
 	int poseRetrunTex = Novice::LoadTexture("./images/posesaisei.png");
-	int playerChangeTex = Novice::LoadTexture("./images/playerChange.png");
+	int playerChangeRunTex = Novice::LoadTexture("./images/playerChangeRun.png");
+	int playerChangeFlyTex = Novice::LoadTexture("./images/playerChangeFly.png");
+	int playerChangeTex = playerChangeFlyTex;
 	int gaugeTex = Novice::LoadTexture("./images/gauge.png");
 	int posegamenTex = Novice::LoadTexture("./images/posegamen.png");
 	int modoruTex = Novice::LoadTexture("./images/modoru.png");
@@ -104,6 +106,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int setumei1Tex = Novice::LoadTexture("./images/setumei1.png");
 	int setumei2Tex = Novice::LoadTexture("./images/setumei2.png");
 	int setumei3Tex = Novice::LoadTexture("./images/setumei3.png");
+	int setumei4Tex = Novice::LoadTexture("./images/setumei4.png");
 
 
 
@@ -147,6 +150,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int gaugeLowSE = -1;
 	bool isGaugeLowSE = 0;
 	int gaugeLowSETimer = 0;
+
+	int gaugeMaximumSEHandle = Novice::LoadAudio("./Sounds/SE/gaugeMaximum.mp3");
+	int gaugeMaximumSE = -1;
+	float oldMaxEnergy = player.maxFlyEnergy;
 
 	int gameBGMHandle = Novice::LoadAudio("./Sounds/gameBGM/Mystic Edge.mp3");
 	int gameBGM = -1;
@@ -238,7 +245,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		if (keys[DIK_0]) {
-			scroll = 11000;
+			scroll = 37500;
 		}
 
 
@@ -301,6 +308,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						if (player.life > 0)
 						{
 							inGameTime++;
+							oldMaxEnergy = player.maxFlyEnergy;
 							oldPlayer = player;
 							if (player.isFly == 0)
 							{
@@ -309,6 +317,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 								scroll += kRunScrollSpeed;
 								runningEmitter.Update({ player.pos.x - player.radius, player.pos.y + 14 }, player.jumpCount);
 								playerTex = playerRunTex;
+								playerChangeTex = playerChangeFlyTex;
 							}
 							else
 							{
@@ -317,6 +326,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 								scroll += kFlightScrollSpeed;
 								flyingEmitter.Update(player.pos);
 								playerTex = playerFlyTex;
+								playerChangeTex = playerChangeRunTex;
 							}
 							bgScroll = int(scroll / 5) % 1280;
 							flightPlayerMS = { kFlightScrollSpeed, player.velocityY };
@@ -383,8 +393,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 								mapCollision = saveMapCollision;
 								player = savePlayer;
 								oldPlayer = saveOldPlayer;
+								player.life = 1;
+								oldPlayer.life = 1;
 								scroll = saveScroll;
-								//player.flyEnergy = 0;
 								player.isFly = 0;
 								player.velocityY = 0;
 							}
@@ -425,7 +436,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							gaugeLowSETimer = 0;
 						}
 
-						if (player.isChageArea == 1 && player.life > 0) {
+						if (player.isChageArea == 1 && player.life > 0 && player.isFly == 1) {
 							gaugeRecoverySETimer++;
 						}
 						else {
@@ -562,9 +573,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		Novice::DrawSprite(0 - bgScroll, 0, bgTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 		Novice::DrawSprite(1280 - bgScroll, 0, bgTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-		Novice::DrawSprite(200 - int(scroll / 5), 75, setumei1Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(0 - int(scroll / 5), 75, setumei1Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
 		Novice::DrawSprite(1350 - int(scroll / 5), 0, setumei2Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
 		Novice::DrawSprite(2600 - int(scroll / 5), -40, setumei3Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
+		Novice::DrawSprite(700 - int(scroll / 5), 75, setumei4Tex, 0.8f, 0.8f, 0.0f, 0xFFFFFFCC);
 
 		for (int y = 0; y < kMapNumHeight; y++)
 		{
@@ -678,7 +690,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				Novice::DrawSprite(186, 624, downTex, 1.0f, 1.0f, 0.0f, 0x555555FF);
 			}
 			Novice::DrawSprite(20, 20, poseButtonTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
-			Novice::DrawBox(48, 535 - int(150 * (player.maxFlyEnergy / 360.0f)), 30, int(150 * (player.maxFlyEnergy / 360.0f)), 0.0f, 0x777777FF, kFillModeSolid);
+			Novice::DrawBox(48, 535 - int(150 * (player.maxFlyEnergy / 360.0f)), 30, int(150 * (player.maxFlyEnergy / 360.0f)), 0.0f, 0x555555FF, kFillModeSolid);
 			Novice::DrawBox(48, 535 - int((150 * (player.maxFlyEnergy / 360.0f)) * player.flyEnergy / player.maxFlyEnergy), 30, int((150 * (player.maxFlyEnergy / 360.0f)) * player.flyEnergy / player.maxFlyEnergy), 0.0f, 0xFFA044FF, kFillModeSolid);
 			Novice::DrawSprite(44, 181, gaugeTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 		}
@@ -763,6 +775,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::StopAudio(selectSE);
 			if (!Novice::IsPlayingAudio(selectSE) || selectSE == -1) {
 				selectSE = Novice::PlayAudio(selectSEHandle, 0, 0.6f);
+			}
+		}
+
+		if (player.maxFlyEnergy > oldMaxEnergy) {
+			if (!Novice::IsPlayingAudio(gaugeMaximumSE) || gaugeMaximumSE == -1) {
+				gaugeMaximumSE = Novice::PlayAudio(gaugeMaximumSEHandle, 0, 0.6f);
 			}
 		}
 
