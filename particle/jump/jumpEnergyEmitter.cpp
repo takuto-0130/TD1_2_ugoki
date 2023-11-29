@@ -8,7 +8,7 @@ JumpEnergyEmitter::~JumpEnergyEmitter()
 {
 }
 
-void JumpEnergyEmitter::Update(Vector2 pos, bool isJump, int life, bool isClear)
+void JumpEnergyEmitter::Update(Vector2 pos, bool isJump, int life, bool isClear, int scene)
 {
 	if (isJump == 1) {
 		isEmit_ = 1;
@@ -32,7 +32,7 @@ void JumpEnergyEmitter::Update(Vector2 pos, bool isJump, int life, bool isClear)
 		itr->Update();
 
 		// DelFlagがtrueだったら
-		if (itr->GetDelFlag() || life == 0 || isClear == 1) {
+		if (itr->GetDelFlag() || life == 0 || isClear == 1 || scene == 0 || life == 0) {
 			itr = particleList.erase(itr);
 		}
 		else {

@@ -153,9 +153,12 @@ void PlayerStageCollision(MapChipNum& map, Player& a, float scroll) {
 		mapNumChange0(map, 5, a, a, scroll);
 		a.getCoin++;
 	}
-	a.maxFlyEnergy = kFlyEnergyMax + (120 * int(a.getCoin / 5.0f));
-	a.kCollisionChargeValue = kCollisionChargeValue;
-	a.kJumpChargeValue = kJumpChargeValue + (12 * int(a.getCoin / 5.0f));
+	if(int(a.getCoin / 5.0f) <= 4.0f)
+	{
+		a.maxFlyEnergy = kFlyEnergyMax + (120 * int(a.getCoin / 5.0f));
+		a.kCollisionChargeValue = kCollisionChargeValue;
+		a.kJumpChargeValue = kJumpChargeValue + (12 * int(a.getCoin / 5.0f));
+	}
 }
 
 void RunMove(Player& player, char* keys, char* preKeys) {

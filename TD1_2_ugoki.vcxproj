@@ -141,6 +141,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClCompile Include="particle\running\RunningParticle.cpp" />
     <ClCompile Include="particle\util\util.cpp" />
     <ClCompile Include="player\player.cpp" />
+    <ClCompile Include="title\Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\base\StringUtility.h" />
@@ -193,6 +194,7 @@ xcopy C:\KamataEngine\DirectXGame\Resources "$(OutDirFullPath)NoviceResources" /
     <ClInclude Include="particle\running\RunningParticle.h" />
     <ClInclude Include="particle\util\util.h" />
     <ClInclude Include="player\player.h" />
+    <ClInclude Include="title\Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

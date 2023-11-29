@@ -9,7 +9,7 @@ GetCoinEmitter::~GetCoinEmitter()
 {
 }
 
-void GetCoinEmitter::Update()
+void GetCoinEmitter::Update(int scene)
 {
 	timer_++;
 
@@ -18,7 +18,7 @@ void GetCoinEmitter::Update()
 		itr->Update();
 
 		// DelFlagがtrueだったら
-		if (itr->GetDelFlag()) {
+		if (itr->GetDelFlag() || scene == 0) {
 			itr = particleList.erase(itr);
 		} else {
 			itr++; // eraseしなかった場合のみイテレーターをインクリメント
@@ -32,7 +32,7 @@ void GetCoinEmitter::Update()
 		circleAlpha_[0] -= 4;
 	}
 
-	if (circleAlpha_[0] <= 0) {
+	if (circleAlpha_[0] <= 0 || scene == 0) {
 		circleDel_[0] = true;
 	}
 
@@ -44,7 +44,7 @@ void GetCoinEmitter::Update()
 			circleAlpha_[1] -= 4;
 		}
 
-		if (circleAlpha_[1] <= 0) {
+		if (circleAlpha_[1] <= 0 || scene == 0) {
 			circleDel_[1] = true;
 		}
 	}

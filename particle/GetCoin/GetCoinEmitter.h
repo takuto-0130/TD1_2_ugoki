@@ -12,7 +12,7 @@ public:
 	GetCoinEmitter();
 	~GetCoinEmitter();
 
-	void Update();
+	void Update(int scene);
 	void Draw(int scroll);
 
 	void Emit(Vector2 centerPos);

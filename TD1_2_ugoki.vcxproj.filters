@@ -53,6 +53,9 @@
     <Filter Include="particle\CheckPoint">
       <UniqueIdentifier>{b320b5df-6e55-4efb-95e7-f57361f93d2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="title">
+      <UniqueIdentifier>{34c922e1-be73-4cdd-9033-4d153c03ed3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="particle\CheckPoint\CheckPointParticle.cpp">
       <Filter>particle\CheckPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="title\Title.cpp">
+      <Filter>title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="particle\CheckPoint\CheckPointParticle.h">
       <Filter>particle\CheckPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="title\Title.h">
+      <Filter>title</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

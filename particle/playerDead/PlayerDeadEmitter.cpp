@@ -48,7 +48,7 @@ void PlayerDeadEmitter::Draw()
 			static_cast<int>(circlePos_.x), static_cast<int>(circlePos_.y),
 			circleRadius_, circleRadius_,
 			0.0f,
-			0xAAAA7700 + circleAlpha_, kFillModeSolid
+			0xFFCC7700 + circleAlpha_, kFillModeSolid
 		);
 	}
 }
@@ -67,8 +67,8 @@ void PlayerDeadEmitter::Emit(Vector2 centerPos)
 
 		unsigned int color = 0x00000000;
 		int R = Random(230, 250);
-		int G = Random(230, 250);
-		int B = Random(50, 150);
+		int G = Random(180, 220);
+		int B = Random(50, 120);
 		color += R << 24;
 		color += G << 16;
 		color += B << 8;

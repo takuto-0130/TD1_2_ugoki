@@ -46,7 +46,7 @@ void ClearEmitter::Emit(Vector2 centerPos)
 	float angle_ = 22.5f * (float)M_PI / 180.f; // 一度で16個生成するため
 	float speed = static_cast<float>(Random(3, 4));
 
-	int p = Random(1,3);
+	int p = Random(1,4);
 
 	for (int i = 0; i < 16; i++) {
 		float particleX = centerPos.x;
@@ -76,6 +76,11 @@ void ClearEmitter::Emit(Vector2 centerPos)
 			R = Random(70, 200);
 			G = Random(70, 200);
 			B = 255;
+		}
+		if (p == 4) {
+			R = Random(215, 255);
+			G = Random(215, 255);
+			B = Random(0, 130);
 		}
 		color += R << 24;
 		color += G << 16;

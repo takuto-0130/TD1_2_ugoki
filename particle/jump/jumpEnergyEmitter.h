@@ -12,7 +12,7 @@ public:
 	JumpEnergyEmitter();
 	~JumpEnergyEmitter();
 
-	void Update(Vector2 pos, bool isJump, int life, bool isClear);
+	void Update(Vector2 pos, bool isJump, int life, bool isClear, int scene);
 	void Draw();
 
 	void Emit(Vector2 pos);//パーティクルを生成する関数
