@@ -77,7 +77,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	float saveScroll = scroll;
 	int bgScroll = 0;
 
-	//int block = Novice::LoadTexture("white1x1.png");
 	int map1Tex = Novice::LoadTexture("./images/map1.png");
 	int bgTex = Novice::LoadTexture("./images/backGround.png");
 	int playerRunTex = Novice::LoadTexture("./images/playerRunning.png");
@@ -86,7 +85,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int checkPointTex = Novice::LoadTexture("../images/checkPoint.png");
 	int coinTex = Novice::LoadTexture("./images/coin.png");
 	int energyBlockTex = Novice::LoadTexture("./images/energyBlock.png");
-	//int titleTex = Novice::LoadTexture("./images/title.png");
 	int resultTex = Novice::LoadTexture("./images/result.png");
 	int goalTex = Novice::LoadTexture("./images/goal.png");
 	int retryTex = Novice::LoadTexture("./images/retry.png");
@@ -247,9 +245,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 
 		if (keys[DIK_0]) {
-			scroll = 37770;
+			player.getCoin = 37;
 		}
-
 
 		isPoseSE = 0;
 		isCheckPointSE = 0;
@@ -364,13 +361,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 							if (mapChipCollision1(mapCollision, 400, player, player, scroll) == 1) {
 								isClear = 1;
-							}
-
-
-							//======================================
-							//デバッグ用ゲージマックス
-							if (keys[DIK_9]) {
-								player.flyEnergy = player.maxFlyEnergy;
 							}
 
 							// プレイヤーの飛行
@@ -495,7 +485,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						backGroundEmitter.Update(playerWorldPos);
 					}
 					getCoinEmitter.Update(scene);
-					coinGaugeNum = int(player.getCoin) % 10;
+					if(player.getCoin < 40)
+					{
+						coinGaugeNum = int(player.getCoin) % 10;
+					}
+					else {
+						coinGaugeNum = 0;
+					}
 					jumpEnergyEmitter.Update(player.pos, player.isJump, player.life, isClear, scene);
 					modeChangeEmitter.Update(flightPlayerMS);
 					byou = int(inGameTime / 60) % 60;
@@ -651,7 +647,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				if (player.isFly == 1)
 				{
-					//Novice::DrawBox(int(player.pos.x - player.radius - kChargeCollisionDistance), int(player.pos.y - player.radius - kChargeCollisionDistance), int(player.collisionLen + kChargeCollisionDistance * 2), int(player.collisionLen + kChargeCollisionDistance * 2), 0.0f, 0x0000FFFF, kFillModeWireFrame);
 					flyingEnergyEmitter.Draw();
 				}
 				else
@@ -728,15 +723,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			}
 			Novice::DrawSprite(20, 20, poseRetrunTex, 1.0f, 1.0f, 0.0f, 0xFFFFFFFF);
 		}
-
-		//Novice::ScreenPrintf(20, 45, "1:AUTO  2:CANCEL  3:FLIGHT  4:kikakushonoyatu");
-		/*Novice::ScreenPrintf(20, 70, "RUN:SPACE(JUMP)  FLIGHT:W(UP) S(DWON)");
-		Novice::ScreenPrintf(20, 95, "SHIFT:ModeChange");
-		Novice::ScreenPrintf(20, 175, "coin = %d", player.getCoin);
-		Novice::ScreenPrintf(20, 200, "isJump = %d", player.isJump);
-		Novice::ScreenPrintf(20, 225, "%.02f", player.maxFlyEnergy);
-		Novice::ScreenPrintf(20, 250, "time = %d", inGameTime);
-		Novice::ScreenPrintf(20, 275, "%f : %f", player.flyEnergy, oldPlayer.flyEnergy);*/
 
 		if (isCheckPointSE == 1) {
 			if (!Novice::IsPlayingAudio(checkPointSE) || checkPointSE == -1) {

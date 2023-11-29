@@ -61,7 +61,7 @@ void ClearParticle::Draw()
 		static_cast<int>(leftBottom_.x), static_cast<int>(leftBottom_.y),
 		static_cast<int>(rightBottom_.x), static_cast<int>(rightBottom_.y),
 		0, 0,
-		1, 1,
+		42, 42,
 		gh_,
 		color_ + alpha_
 	);

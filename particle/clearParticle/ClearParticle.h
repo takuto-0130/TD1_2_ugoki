@@ -14,7 +14,7 @@ public:
 	bool GetDelFlag();
 
 private:
-	int gh_ = Novice::LoadTexture("./images/clearParticle.png");
+	int gh_ = Novice::LoadTexture("./images/jumpEnergy.png");
 
 	Vector2 pos_; // 中心座標
 

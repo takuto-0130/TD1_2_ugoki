@@ -14,7 +14,7 @@ public:
 	bool GetDelFlag(); // パーティクルが消えたかを取得する関数
 
 private:
-	int gh_ = Novice::LoadTexture("./images/runningParticle.png");
+	int gh_ = Novice::LoadTexture("./images/backGroundParticle.png");
 
 	Vector2 pos_; // 中心座標
 

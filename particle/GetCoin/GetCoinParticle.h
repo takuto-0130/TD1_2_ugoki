@@ -14,7 +14,7 @@ public:
 	bool GetDelFlag();
 
 private:
-	int gh_ = Novice::LoadTexture("./images/GetCoinParticle.png");
+	int gh_ = Novice::LoadTexture("./images/CheckPointParticle.png");
 
 	Vector2 pos_; // 中心座標
 
