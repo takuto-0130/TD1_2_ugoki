@@ -138,6 +138,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	int gaugeRecoverySEHandle = Novice::LoadAudio("./Sounds/SE/gaugeRecovery.mp3");
 	int gaugeRecoverySE = -1;
+	int gaugeRecoverySETimer = 0;
 
 	int gaugeLowSEHandle = Novice::LoadAudio("./Sounds/SE/gaugeLow.mp3");
 	int gaugeLowSE = -1;
@@ -408,7 +409,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 							isGaugeIncreaseSE = 1;
 						}
 
-						if (player.flyEnergy < 110 && player.isFly == 1 && player.isChageArea == 0) {
+						if (player.flyEnergy < 105 && player.isFly == 1 && player.isChageArea == 0) {
 							isGaugeLowSE = 1;
 						}
 					}
@@ -744,6 +745,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 
 		if (player.isChageArea == 1 && player.life > 0) {
+			gaugeRecoverySETimer++;
+			/*Novice::StopAudio(gaugeRecoverySE);
+			if (!Novice::IsPlayingAudio(gaugeRecoverySE) || gaugeRecoverySE == -1) {
+				gaugeRecoverySE = Novice::PlayAudio(gaugeRecoverySEHandle, 0, 0.6f);
+			}*/
+		}
+		else {
+			gaugeRecoverySETimer = 0;
+		}
+
+		if (gaugeRecoverySETimer % 40 == 1) {
 			Novice::StopAudio(gaugeRecoverySE);
 			if (!Novice::IsPlayingAudio(gaugeRecoverySE) || gaugeRecoverySE == -1) {
 				gaugeRecoverySE = Novice::PlayAudio(gaugeRecoverySEHandle, 0, 0.6f);
