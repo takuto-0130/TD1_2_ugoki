@@ -144,6 +144,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int gaugeRecoverySE = -1;
 	int gaugeRecoverySETimer = 0;
 
+	int gaugeMaxSEHandle = Novice::LoadAudio("./Sounds/SE/gaugeMax.mp3");
+	int gaugeMaxSE = -1;
+	float oldEnergy = player.flyEnergy;
+
 	int gaugeLowSEHandle = Novice::LoadAudio("./Sounds/SE/gaugeLow.mp3");
 	int gaugeLowSE = -1;
 	bool isGaugeLowSE = 0;
@@ -304,6 +308,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						{
 							inGameTime++;
 							oldMaxEnergy = player.maxFlyEnergy;
+							oldEnergy = player.flyEnergy;
 							oldPlayer = player;
 							if (player.isFly == 0)
 							{
@@ -789,6 +794,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		if (gaugeRecoverySETimer == 0) {
 			Novice::StopAudio(gaugeRecoverySE);
+		}
+
+		if (player.flyEnergy == player.maxFlyEnergy && oldEnergy < player.maxFlyEnergy && player.isFly == 0) {
+			Novice::StopAudio(gaugeMaxSE);
+			if (!Novice::IsPlayingAudio(gaugeMaxSE) || gaugeMaxSE == -1) {
+				gaugeMaxSE = Novice::PlayAudio(gaugeMaxSEHandle, 0, 0.6f);
+			}
 		}
 
 		if (gaugeLowSETimer % 40 == 1) {
