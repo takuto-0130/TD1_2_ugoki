@@ -244,10 +244,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 
-		if (keys[DIK_0]) {
-			player.getCoin = 37;
-		}
-
 		isPoseSE = 0;
 		isCheckPointSE = 0;
 		isGetCoinSE = 0;
