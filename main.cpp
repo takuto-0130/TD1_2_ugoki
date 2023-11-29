@@ -152,7 +152,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	int titleBGMHandle = Novice::LoadAudio("./Sounds/titleBGM/Mystic.mp3");
 	int titleBGM = -1;
 	float titleVol = 0.4f;
-
+	bool isTitleBgm = 1;
 
 	bool isCheckPoint = 0;
 	bool isOldCheckPoint = isCheckPoint;
@@ -251,6 +251,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		switch (scene) {
 		case TITLE:
+			isTitleBgm = 1;
 			afterClearTimer = 0;
 			isPause = 0;
 			inGameTime = 0;
@@ -267,6 +268,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			jumpEnergyEmitter.Update(player.pos, player.isJump, player.life, isClear, scene);
 			break;
 		case GAME:
+			isTitleBgm = 0;
 			if (isStartGame == 1)
 			{
 				if (preKeys[DIK_SPACE] == 0 && keys[DIK_SPACE] != 0 && isClear == 1 && player.pos.x >= 1320) {
@@ -781,7 +783,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 
 
-		if (scene == TITLE) {
+		if (isTitleBgm == 1) {
 			Novice::StopAudio(gameBGM);
 			titleVol = 0.4f;
 			gameVol = 0.0f;
@@ -789,8 +791,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				titleBGM = Novice::PlayAudio(titleBGMHandle, 0, titleVol);
 			}
 		}
-
-		if (scene == GAME) {
+		else {
 			Novice::StopAudio(titleBGM);
 			titleVol = 0.0f;
 			gameVol = 0.4f;
