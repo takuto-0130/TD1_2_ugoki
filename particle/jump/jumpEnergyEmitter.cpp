@@ -44,7 +44,7 @@ void JumpEnergyEmitter::Update(Vector2 pos, bool isJump, int life, bool isClear,
 void JumpEnergyEmitter::EmitGoal(Vector2 pos)
 {
 	// パーティクルのゴール地点をプレイヤーの中心に設定
-	for (auto& particle : particleList) {
+	for (JumpEnergyParticle& particle : particleList) {
 		particle.EmitGoal(pos);
 	}
 }
